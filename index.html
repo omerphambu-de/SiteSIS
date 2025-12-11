@@ -1,281 +1,675 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Splendide Info Service - Accueil</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Splendide Info Service - Accueil</title>
+  <style>
+    :root{
+      --primary:#003580;
+      --accent:#f4f8ff;
+      --muted:#6b7280;
+      --cta:#ff6b00
+    }
+    *{box-sizing:border-box}
+    body{
+      font-family:Inter, 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(135deg, #a0e9ff, #00bfff, #0066cc);
+      color:#222;
+      margin:0;
+    }
+    a{color:inherit;text-decoration:none}
 
-<style>
-/* ===== RESET ===== */
-*{margin:0;padding:0;box-sizing:border-box;}
-body{
-    font-family:'Segoe UI', Tahoma, sans-serif;
-    background:#eef2f7;
-    color:#333;
-    overflow-x:hidden;
-}
+    /* Topbar */
+    .topbar{
+      background: linear-gradient(90deg, #00bfff, #0066cc);
+      color:#fff;
+      font-size:14px;
+      padding:6px 12px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+    .topbar .promo{display:flex;gap:18px;align-items:center}
+    .topbar .promo span{opacity:0.95}
 
-/* ===== ANIMATIONS ===== */
-.fade-in{
-    animation:fadeIn 1s ease forwards;
-    opacity:0;
-}
-@keyframes fadeIn{
-    from{opacity:0;transform:translateY(20px);}
-    to{opacity:1;transform:translateY(0);}
-}
+    /* Header */
+    header{border-bottom:1px solid rgba(255,255,255,0.3)}
+    .header-main{display:flex;align-items:center;justify-content:space-between;padding:14px 18px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand img{height:48px}
+    .brand h1{font-size:20px;color:#fff;margin:0}
 
-/* ===== SLIDER ===== */
-.slider{
-    width:100%;height:260px;position:relative;overflow:hidden;
-}
-.slide{
-    position:absolute;width:100%;height:100%;
-    background-size:cover;background-position:center;
-    opacity:0;transition:opacity 1.2s ease;
-    display:flex;flex-direction:column;justify-content:center;align-items:center;
-    color:white;text-align:center;padding:0 20px;
-}
-.slide.active{opacity:1;}
+    /* Search + icons */
+    .search-wrap{flex:1;max-width:720px;margin:0 20px}
+    .search{display:flex;border-radius:8px;overflow:hidden}
+    .search input{
+      flex:1;
+      padding:12px 14px;
+      border:0;
+      font-size:15px;
+      border-radius:8px 0 0 8px;
+    }
+    .search button{
+      background: linear-gradient(90deg,#00bfff,#0066cc);
+      color:#fff;
+      border:0;
+      padding:10px 16px;
+      font-weight:600;
+      cursor:pointer;
+    }
+    .icons{display:flex;gap:12px;align-items:center}
+    .icon-btn{display:flex;flex-direction:column;align-items:center;font-size:12px;color:var(--muted)}
+    .icon-btn strong{color:#fff;font-size:13px}
 
-.slide-overlay{
-    position:absolute;width:100%;height:100%;
-    background:rgba(0,0,0,0.45);
-    top:0;left:0;
-    backdrop-filter:blur(2px);
-}
-.slide-content{position:relative;z-index:2;}
+    /* Categories nav */
+    .nav-cats{
+      display:flex;
+      gap:12px;
+      padding:12px 18px;
+      background: linear-gradient(90deg, #80d4ff, #c0eaff, #e0f7ff);
+      overflow:auto;
+      border-radius:8px;
+    }
+    .nav-cats a{
+      padding:9px 14px;
+      border-radius:8px;
+      color:#003580;
+      background:transparent;
+      border:1px solid transparent;
+      white-space:nowrap;
+    }
+    .nav-cats a:hover{background:rgba(255,255,255,0.3)}
 
-.slide h1{
-    font-size:1.4em;
-    background:rgba(0,0,0,0.4);
-    padding:10px 20px;border-radius:12px;
-}
-.slide h1 img{
-    width:85px;height:70px;object-fit:contain;margin-bottom:4px;
-}
-.slide p{
-    background:rgba(0,0,0,0.35);
-    padding:8px 14px;border-radius:10px;margin-top:10px;
-    font-size:0.95em;
-}
+    /* Hero */
+    .hero{display:grid;grid-template-columns:1fr 420px;gap:18px;padding:22px 18px}
+    .hero-card{
+      background: linear-gradient(145deg, #e0f7ff, #c0eaff, #80d4ff);
+      padding:22px;
+      border-radius:12px;
+      box-shadow:0 6px 15px rgba(0,0,0,0.1);
+    }
+    .hero-card h2{color:#003580;margin:0 0 8px}
+    .hero-slider{position:relative;overflow:hidden;border-radius:12px;height:320px}
+    .slide{position:absolute;inset:0;background-size:cover;background-position:center;transition:opacity .7s;opacity:0}
+    .slide.active{opacity:1}
 
-/* ===== MENU ===== */
-.menu{
-    background:white;
-    padding:12px 5px;
-    display:flex;justify-content:space-around;
-    font-size:0.85em;
-    border-bottom:3px solid #003580;
-    position:sticky;top:0;z-index:20;
-    box-shadow:0 2px 8px rgba(0,0,0,0.1);
-}
-.menu a{
-    color:#003580;font-weight:bold;text-decoration:none;
-    transition:0.3s;
-}
-.menu a:hover{opacity:0.7;}
+    /* Services & Products */
+    .services-section, .products-section{padding:40px 18px}
+    .services-grid, .products-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
+    .service-card, .product-card{
+      background: linear-gradient(145deg, #c0eaff, #80d4ff, #a0e9ff);
+      border-radius:10px;
+      padding:16px;
+      text-align:center;
+      box-shadow:0 6px 12px rgba(0,0,0,0.1);
+      border:1px solid rgba(0,102,204,0.2);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .service-card:hover, .product-card:hover{
+      transform: translateY(-3px);
+      box-shadow:0 12px 20px rgba(0,0,0,0.2);
+    }
+    .service-card img, .product-card img{width:100%;height:150px;object-fit:cover;border-radius:8px}
+    .service-card h3, .product-card h3{color:#003580;margin:12px 0}
+    .service-card p, .product-card p{color:#222;font-size:14px}
 
-/* ===== TITRES ===== */
-.section-title{
-    font-size:1.5em;
-    color:#003580;
-    font-weight:700;
-    border-left:5px solid #003580;
-    padding-left:10px;
-    margin-bottom:22px;
-}
+    /* Buttons */
+    .btn, button{
+      background: linear-gradient(90deg,#00bfff,#0066cc);
+      color:#fff;
+      font-weight:600;
+      border-radius:8px;
+      border:none;
+      padding:10px 16px;
+      cursor:pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn:hover, button:hover{
+      transform: translateY(-2px);
+      box-shadow:0 6px 12px rgba(0,0,0,0.2);
+    }
 
-/* ===== RÉALISATIONS ===== */
-.photos{
-    display:grid;grid-template-columns:1fr;gap:18px;
-}
-.card{
-    background:rgba(255,255,255,0.6);
-    backdrop-filter:blur(6px);
-    border-radius:15px;
-    overflow:hidden;
-    box-shadow:0 5px 15px rgba(0,0,0,0.15);
-    transition:0.3s;
-}
-.card:hover{transform:translateY(-4px);}
+    /* Footer */
+    footer{background: linear-gradient(90deg, #00bfff, #0066cc); color:#fff; padding:24px; font-size:14px; margin-top:26px;text-align:center}
 
-.card img{
-    width:100%;height:170px;object-fit:cover;
-}
-.card h3{
-    font-size:1.15em;margin:12px;color:#003580;
-}
-.card p{
-    font-size:0.9em;margin:0 12px 12px;
-}
-
-/* ===== BUREAUTIQUE ===== */
-.bureautique-card{
-    background:linear-gradient(135deg,#003580,#005ad5);
-    color:white;padding:20px;border-radius:14px;font-size:0.95em;
-    box-shadow:0 4px 12px rgba(0,0,0,0.15);
-}
-
-/* ===== AVANTAGES ===== */
-.advantages{
-    display:grid;gap:15px;
-}
-.adv-card{
-    background:linear-gradient(135deg,#2575fc,#6a11cb);
-    padding:18px;color:white;border-radius:12px;
-    box-shadow:0 4px 12px rgba(0,0,0,0.15);
-}
-.adv-card h3{margin-bottom:6px;font-size:1.1em;}
-
-/* ===== TÉMOIGNAGES ===== */
-.testimonial{
-    display:flex;gap:12px;align-items:flex-start;
-}
-.testimonial img{
-    width:55px;height:55px;border-radius:50%;object-fit:cover;
-}
-.testimonial-text{
-    background:linear-gradient(135deg,#25D366,#128C7E);
-    padding:12px;border-radius:14px;color:white;
-    font-size:0.9em;box-shadow:0 3px 8px rgba(0,0,0,0.15);
-}
-
-/* ===== CONTACT ===== */
-.contact-info a{
-    display:block;margin:10px auto;padding:12px 15px;width:92%;
-    text-align:center;background:#003580;color:white;
-    border-radius:25px;font-size:1em;text-decoration:none;
-    box-shadow:0 4px 10px rgba(0,0,0,0.15);
-    transition:0.3s;
-}
-.contact-info a:hover{opacity:0.8;}
-
-/* ===== FOOTER ===== */
-footer{
-    background:#003580;color:white;text-align:center;
-    padding:20px;margin-top:40px;
-    font-size:0.85em;
-}
-</style>
-</head>
+    /* Responsive */
+    @media(max-width:1100px){.hero{grid-template-columns:1fr 320px}}
+    @media(max-width:800px){.hero{grid-template-columns:1fr}}
+    @media(max-width:480px){.topbar{font-size:13px}.brand img{height:40px}}
+  </style>
 <body>
-
-<!-- SLIDER -->
-<div class="slider fade-in">
-    <div class="slide active" style="background-image:url('jk.jpg');">
-        <div class="slide-overlay"></div>
-        <div class="slide-content">
-            <h1><img src="loi.png">Bienvenue chez Splendide Info Service</h1>
-            <p>Des solutions professionnelles à votre service</p>
-        </div>
+      <!-- TOP PROMO -->
+  <div class="topbar">
+    <div class="promo">
+      <span>Livraison gratuite 24/48h</span>
+      <span>Satisfait ou remboursé</span>
+      <span>Newsletter : 10€ HT offerts</span>
     </div>
-
-    <div class="slide" style="background-image:url('moi.webp');">
-        <div class="slide-overlay"></div>
-        <div class="slide-content">
-            <h1><img src="loi.png">Un service fiable et rapide</h1>
-            <p>Gestion, secrétariat et technologies modernes</p>
+    <div class="contact">📞 050 146 003</div>
+  </div>
+  <!-- HEADER -->
+  <header>
+    <div class="header-main">
+      <div class="brand">
+        <img src="loi.png" alt="Logo SIS">
+        <div>
+          <h1>Splendide Info Service</h1>
+          <div style="font-size:12px;color:var(--accent)">Secrétariat • Bureautique • Impression</div>
         </div>
-    </div>
+      </div>
+<!-- BARRE DE RECHERCHE + AUTOCOMPLÉTION -->
+<div class="search-wrap" style="position:relative; margin:20px 0;">
+    <form class="search" onsubmit="event.preventDefault();searchProducts()" style="display:flex; gap:8px;">
+        <input id="searchInput" placeholder="Rechercher un produit, une référence..." 
+               style="flex:1; padding:12px; border:1px solid #cdd7e1; border-radius:8px;">
+        <button type="submit" 
+                style="padding:12px 20px; background:#003580; color:white; border:none; border-radius:8px; font-weight:600;">
+            Rechercher
+        </button>
+    </form>
 
-    <div class="slide" style="background-image:url('photo.jpg');">
-        <div class="slide-overlay"></div>
-        <div class="slide-content">
-            <h1><img src="loi.png">Professionnalisme garanti</h1>
-            <p>Votre satisfaction est notre priorité</p>
-        </div>
-    </div>
+    <!-- SUGGESTIONS AFFICHÉES AUTOMATIQUEMENT -->
+    <div id="suggestions" style="
+        position:absolute;
+        background:white;
+        border:1px solid #d7e7fb;
+        border-top:none;
+        width:100%;
+        max-height:180px;
+        overflow-y:auto;
+        display:none;
+        z-index:30;
+        border-radius:0 0 8px 8px;
+    "></div>
 </div>
 
-<!-- MENU -->
-<nav class="menu fade-in">
-  <a href="index.html">Accueil</a>
-  <a href="services.html">Services</a>
-  <a href="nos-tarifs.html">Tarifs</a>
-  <a href="a-propos.html">À propos</a>
-  <a href="bibliotheque1.html">Galerie</a>
+<!-- SCRIPT COMPLET DE RECHERCHE + AUTOCOMPLÉTION -->
+<script>
+// Liste des produits
+const productList = [
+  "Formation Informatique",
+  "Cartes de Pointage",
+  "Photo Minute",
+  "Scannage",
+  "Reliure",
+  "Calendrier personnalisé A3",
+  "Plastification A4",
+  "Scan + PDF",
+  "Poudre Quasil",
+  "Techno, Itel, Iphone"
+];
+
+// Sélecteurs
+const searchInput = document.getElementById("searchInput");
+const suggestions = document.getElementById("suggestions");
+
+// AUTOCOMPLÉTION
+searchInput.addEventListener("input", () => {
+  const query = searchInput.value.toLowerCase();
+  suggestions.innerHTML = "";
+
+  if (query === "") {
+    suggestions.style.display = "none";
+    return;
+  }
+
+  const filtered = productList.filter(item =>
+    item.toLowerCase().includes(query)
+  );
+
+  if (filtered.length === 0) {
+    suggestions.style.display = "none";
+    return;
+  }
+
+  suggestions.style.display = "block";
+
+  filtered.forEach(item => {
+    const div = document.createElement("div");
+    div.textContent = item;
+    div.style.padding = "10px";
+    div.style.cursor = "pointer";
+    
+    div.addEventListener("click", () => {
+      searchInput.value = item;
+      suggestions.style.display = "none";
+      searchProducts();
+    });
+
+    suggestions.appendChild(div);
+  });
+});
+
+// Cacher les suggestions si clic dehors
+document.addEventListener("click", (e) => {
+  if (!searchInput.contains(e.target)) {
+    suggestions.style.display = "none";
+  }
+});
+
+// RECHERCHE DANS LES PRODUITS : filtre les cartes .product-card
+function searchProducts() {
+  const query = searchInput.value.toLowerCase();
+  const cards = document.querySelectorAll(".product-card");
+
+  cards.forEach(card => {
+    const title = card.querySelector("h3").textContent.toLowerCase();
+    const desc = card.querySelector("p").textContent.toLowerCase();
+
+    if (title.includes(query) || desc.includes(query)) {
+      card.style.display = "block";
+    } else {
+      card.style.display = "none";
+    }
+  });
+}
+</script>
+      <div class="icons">
+        <a class="icon-btn" href="mailto:omerphambu@gmail.com"><strong>Email</strong></a>
+        <a class="icon-btn" href="https://wa.me/243904649754?text=Bonjour%20SIS"><strong>WhatsApp</strong></a>
+        <a class="icon-btn" href="#cart"><strong>Panier <span id="cartCount">0</span></strong></a>
+      </div>
+    </div>
+
+    <!-- CATEGORIES -->
+   <nav class="nav-cats">
+  <a href="fourniture.html">Fournitures</a>
+  <a href="papeterie.html">Papeterie</a>
+  <a href="impression.html">Impression</a>
+  <a href="bureautique.html">Bureautique</a>
+  <a href="scan-plastification.html">Scan & Plastification</a>
+  <a href="services-pros.html">Services pros</a>
+  <a href="promotions.html">Promotions</a>
 </nav>
 
-<!-- RÉALISATIONS -->
-<section class="fade-in">
-  <h2 class="section-title">Nos Réalisations</h2>
-  <div class="photos" id="photos-container"></div>
-</section>
+  </header>
 
-<!-- BUREAUTIQUE -->
-<section class="fade-in">
-  <h2 class="section-title">Notre Bureautique</h2>
-  <div class="bureautique-card">
-    Notre service de bureautique offre un accompagnement professionnel adapté pour documents académiques, administratifs et informatiques.
+  <!-- HERO + SIDEBAR -->
+  <main class="hero">
+    <section class="hero-card">
+      <div class="hero-slider" id="heroSlider">
+        <div class="slide active" style="background-image:url('reluire.webp')"></div>
+        <div class="slide" style="background-image:url('plasfication.jpg')"></div>
+        <div class="slide" style="background-image:url('photoo.jpg')"></div>
+        <div class="slide" style="background-image:url('moi.webp')"></div>
+        <div class="slide" style="background-image:url('POUDRE QUASIL.jpg')"></div>
+        <div class="slide" style="background-image:url('bussiness-man-hand-press-button-260nw-1105508111.jpg')"></div>
+      </div>
+      <div style="margin-top:14px">
+        <h2>Solutions complètes pour entreprises & étudiants</h2>
+        <p style="color:var(--muted);margin:6px 0 0">Impression, mise en page, rapports, reliures, plastification — service rapide et soigné.</p>
+<script>
+  const sliderTrack = document.querySelector('.slider-track');
+  const sliderSlides = sliderTrack.querySelectorAll('div'); // chaque div est un slide
+  const slideCount = 3; // nombre de slides visibles à la fois
+  const slideWidth = sliderSlides[0].offsetWidth + 20; // largeur + gap
+  let sliderIndex = 0;
+
+  function showSlider(i){
+    if(i < 0) sliderIndex = sliderSlides.length - slideCount;
+    else if(i > sliderSlides.length - slideCount) sliderIndex = 0;
+    else sliderIndex = i;
+    sliderTrack.style.transform = `translateX(-${sliderIndex * slideWidth}px)`;
+  }
+
+  document.getElementById('prevSlide').addEventListener('click', () => showSlider(sliderIndex - 1));
+  document.getElementById('nextSlide').addEventListener('click', () => showSlider(sliderIndex + 1));
+
+  // Défilement automatique toutes les 5 secondes
+  setInterval(() => showSlider(sliderIndex + 1), 5000);
+</script>
+
+      </div>
+    </section>
+<aside>
+  <div class="service-card" style="padding:18px;">
+    <h3 style="margin:0 0 12px; font-size:20px;">Bienvenue sur Splendide Info Service</h3>
+    <p style="margin:0 0 10px; font-size:15px; line-height:1.6;">
+      Splendide Info Service est votre plateforme de référence pour tous vos besoins en <strong>services professionnels et informatiques</strong>. 
+      Nous offrons des solutions complètes pour les entreprises, étudiants et particuliers : <strong>impression, reliure, scannage, cartes de visite, bureautique et formation informatique</strong>.  
+      Explorez nos produits et services directement sur notre site, profitez d'une navigation intuitive et trouvez facilement ce dont vous avez besoin.  
+      Chaque service est conçu pour être <strong>rapide, fiable et de qualité professionnelle</strong>.
+    </p>
+    <ul style="margin:10px 0 0; padding-left:20px; font-size:14px; line-height:1.5;">
+      <li>Impression & reliure professionnelles</li>
+      <li>Numérisation et archivage sécurisé</li>
+      <li>Produits bureautiques et consommables</li>
+      <li>Formation Word, Excel et maintenance PC</li>
+      <li>Support rapide et conseils personnalisés</li>
+    </ul>
+    <a href="#services" class="btn" style="margin-top:12px; display:inline-block;">Découvrir nos services</a>
   </div>
-</section>
+</aside>
+  </main>
 
-<!-- AVANTAGES -->
-<section class="fade-in">
-  <h2 class="section-title">Pourquoi nous choisir</h2>
-  <div class="advantages">
-    <div class="adv-card"><h3>Rapide</h3><p>Nous intervenons rapidement pour vos besoins.</p></div>
-    <div class="adv-card"><h3>Professionnel</h3><p>Une équipe qualifiée et rigoureuse.</p></div>
-    <div class="adv-card"><h3>Fiable</h3><p>Des solutions durables et sûres.</p></div>
-  </div>
-</section>
+  <!-- NOS SERVICES -->
+  <section class="services-section">
+    <h2>Nos Services</h2>
+    <div class="services-grid">
+      <div class="service-card">
+        <img src="formation.webp" alt="Formation Informatique">
+        <h3>Formation Informatique</h3>
+        <p>Apprenez Word, Excel et maintenance PC avec nos cours pratiques et interactifs pour tous niveaux.</p>
+      </div>
+      <div class="service-card">
+        <img src="carte.jpeg" alt="Cartes de Pointage">
+        <h3>Cartes de Pointage</h3>
+        <p>Cartes professionnelles pour entreprises et institutions avec suivi de présence fiable et sécurisé.</p>
+      </div>
+      <div class="service-card">
+        <img src="photoo.jpg" alt="Photo Minute">
+        <h3>Photo Minute</h3>
+        <p>Photos d’identité et portraits rapides avec impression de qualité immédiate.</p>
+      </div>
+      <div class="service-card">
+        <img src="scanne.jpg" alt="Scannage">
+        <h3>Scannage</h3>
+        <p>Numérisation de documents et fichiers avec haute résolution pour archivage et partage sécurisé.</p>
+      </div>
+      <div class="service-card">
+        <img src="reluire.webp" alt="Reliure">
+        <h3>Reliure</h3>
+        <p>Reliure professionnelle de documents, rapports et thèses avec finition soignée et durable.</p>
+      </div>
+    </div>
+  </section>
+  <!-- NOS PRODUITS -->
+  <section class="products-section">
+    <h2>Nos Produits</h2>
+    <div class="products-grid">
+      <div class="product-card">
+        <img src="calendrier.jpg" alt="Calendrier personnalisé A3">
+        <h3>Calendrier personnalisé A3</h3>
+        <p>Calendriers sur mesure avec logos et photos pour particuliers et entreprises.</p>
+      </div>
+      <div class="product-card">
+        <img src="plasfication.jpg" alt="Plastification A4">
+        <h3>Plastification A4</h3>
+        <p>Protège vos documents avec finition brillante ou mate pour un rendu professionnel.</p>
+      </div>
+      <div class="product-card">
+        <img src="photoo.jpg" alt="Scan + PDF">
+        <h3>Scan + PDF</h3>
+        <p>Numérisation et conversion de documents en PDF de haute qualité.</p>
+      </div>
+      <div class="product-card">
+        <img src="POUDRE QUASIL.jpg" alt="Poudre Quasil">
+        <h3>Poudre Quasil</h3>
+        <p>Produits de qualité pour vos besoins professionnels et domestiques.</p>
+      </div>
+      <div class="product-card">
+        <img src="images (4).jfif" alt="Mise a jour des téléphones">
+        <h3>Techno,Itel,Iphone, ect.....</h3>
+        <p>Service pour de bonne quailité pour vos téléphones</p>
+      </div>
+    </div>
+  </section>
 
-<!-- TÉMOIGNAGES -->
-<section class="fade-in">
-  <h2 class="section-title">Témoignages clients</h2>
-  <div class="testimonials">
-    <div class="testimonial">
-      <img src="IMG_7069.jpg">
-      <div class="testimonial-text">"Excellent service." - Michel B.</div>
+  <!-- BANNIERE AVANT FOOTER -->
+<!-- BANNIERE AVANT FOOTER -->
+<section style="background: linear-gradient(90deg,#80d4ff,#c0eaff,#e0f7ff); padding:40px 18px; border-radius:12px; margin:20px 18px; position:relative; display:flex; flex-wrap:wrap; gap:30px;">
+
+<!-- BANNIERE PUBLICITÉS AVEC SLIDER ET COMMENTAIRES -->
+<!-- CAROUSEL PUBLICITÉS 3 IMAGES VISIBLE AVEC FLÈCHES -->
+<section style="width:100%; max-width:1000px; margin:20px auto; position:relative; overflow:hidden; border-radius:12px;">
+
+  <!-- Conteneur des images -->
+ <div style="max-width:960px; margin:0 auto; position:relative;">
+
+  <!-- TITRE UNIQUE -->
+  <h3 style="text-align:center; color:#ff6b00; margin-bottom:20px; font-size:20px;">Publications du Jour</h3>
+
+  <!-- FLÈCHES DE DIRECTION -->
+  <button id="prev" style="position:absolute; top:50%; left:0; transform:translateY(-50%); background:#003580; color:#fff; border:none; border-radius:50%; width:35px; height:35px; cursor:pointer; z-index:10;">&#10094;</button>
+  <button id="next" style="position:absolute; top:50%; right:0; transform:translateY(-50%); background:#003580; color:#fff; border:none; border-radius:50%; width:35px; height:35px; cursor:pointer; z-index:10;">&#10095;</button>
+
+  <!-- SLIDER TRACK -->
+  <div class="slider-track" style="display:flex; transition:transform 0.5s ease; gap:20px;">
+
+    <!-- Slide 1 -->
+    <div style="flex-shrink:0; width:300px; text-align:center;">
+      <img src="670d1e65dd81bcb5749cfa05_66475da79ba5eb5a0a927d79_09-iOS-18-Concept-Central-800x450.webp" alt="Pub 1" style="width:300px; height:200px; border-radius:12px; object-fit:cover;">
+      <p style="margin-top:6px; font-size:14px; color:#003580;">Design iOS 18 Concept – découvrez notre nouveauté du jour !</p>
     </div>
 
-    <div class="testimonial">
-      <img src="photo.jpg">
-      <div class="testimonial-text">"Professionnel et rapide." - Laure P.</div>
+    <!-- Slide 2 -->
+    <div style="flex-shrink:0; width:300px; text-align:center;">
+      <img src="calendrier.jpg" alt="Pub 2" style="width:300px; height:200px; border-radius:12px; object-fit:cover;">
+      <p style="margin-top:6px; font-size:14px; color:#003580;">Calendriers personnalisés à -10% – profitez-en dès aujourd’hui !</p>
     </div>
+
+    <!-- Slide 3 -->
+    <div style="flex-shrink:0; width:300px; text-align:center;">
+      <img src="photo.jpg" alt="Pub 3" style="width:300px; height:200px; border-radius:12px; object-fit:cover;">
+      <p style="margin-top:6px; font-size:14px; color:#003580;">Livraison gratuite sur toutes vos commandes en Boma – aujourd’hui seulement !</p>
+    </div>
+
   </div>
+</div>
+
+<!-- JS Slider simple -->
+<script>
+  const track = document.querySelector('.slider-track');
+  const slides = document.querySelectorAll('.slider-track > div');
+  let index = 0;
+
+  function showSlide(i){
+    if(i < 0) index = slides.length - 3;
+    else if(i > slides.length - 3) index = 0;
+    else index = i;
+    track.style.transform = `translateX(-${index * 320}px)`;
+  }
+
+  document.getElementById('prev').addEventListener('click', () => showSlide(index - 1));
+  document.getElementById('next').addEventListener('click', () => showSlide(index + 1));
+
+  setInterval(() => showSlide(index + 1), 5000);
+</script>
+
+
+  <!-- Flèches gauche/droite -->
+  <button id="prevSlide" style="position:absolute; top:50%; left:10px; transform:translateY(-50%); background:#003580; color:#fff; border:none; border-radius:50%; width:40px; height:40px; cursor:pointer;">&#10094;</button>
+  <button id="nextSlide" style="position:absolute; top:50%; right:10px; transform:translateY(-50%); background:#003580; color:#fff; border:none; border-radius:50%; width:40px; height:40px; cursor:pointer;">&#10095;</button>
+
 </section>
 
-<!-- CONTACT -->
-<section class="fade-in">
-  <h2 class="section-title">Contact rapide</h2>
-  <div class="contact-info">
-    <a href="tel:050146003">Appeler : 050 146 003</a>
-    <a href="https://wa.me/243904649754?text=Bonjour%20SIS">WhatsApp</a>
-    <a href="mailto:omerphambu@gmail.com">Email</a>
-    <a href="https://www.google.com/maps/search/?api=1&query=Grand+Marché">Voir Grand Marché</a>
+<!-- JS pour le carousel -->
+<script>
+  const track = document.querySelector('.slider-track');
+  const slides = track.querySelectorAll('img');
+  const slideWidth = slides[0].offsetWidth + 20; // largeur + gap
+  let index = 0;
+
+  function showSlide(i){
+    if(i < 0) index = slides.length - 3; // 3 visibles
+    else if(i > slides.length - 3) index = 0;
+    else index = i;
+    track.style.transform = `translateX(-${index * slideWidth}px)`;
+  }
+
+  document.getElementById('prevSlide').addEventListener('click', () => showSlide(index - 1));
+  document.getElementById('nextSlide').addEventListener('click', () => showSlide(index + 1));
+
+  setInterval(() => showSlide(index + 1), 5000);
+</script>
+
+
+
+
+  <!-- TÉMOIGNAGES ET BOUTON CONTACT ... reste inchangé -->
+  <div style="flex:2; min-width:300px; text-align:center;">
+    <!-- contenu existant des témoignages -->
   </div>
 </section>
-
-<footer>
-  © 2025 Splendide Info Service - Tous droits réservés
-</footer>
 
 <script>
-// SLIDER
-let idx=0;
-const slides=document.querySelectorAll('.slide');
-setInterval(()=>{
-    slides[idx].classList.remove('active');
-    idx=(idx+1)%slides.length;
-    slides[idx].classList.add('active');
-},3000);
+  // Slider notifications verticales
+  const notifSlides = document.querySelectorAll('.notif-slide');
+  let notifIndex = 0;
+  notifSlides.forEach((slide, i) => {
+    if(i !== 0) slide.style.display = 'none'; // afficher uniquement la 1ère
+  });
 
-// GALERIE
-const realizations=[
-  {img:'calendrier.jpg',title:'Calendriers',desc:'Création de calendriers.'},
-  {img:'plasfication.jpg',title:'Plastification',desc:'Protection durable.'},
-  {img:'scanne.jpg',title:'Scannage',desc:'Numérisation claire.'}
-];
-const container=document.getElementById('photos-container');
-realizations.forEach(r=>{
-  let c=document.createElement('div');
-  c.className='card fade-in';
-  c.innerHTML=`<img src="${r.img}"><h3>${r.title}</h3><p>${r.desc}</p>`;
-  container.appendChild(c);
-});
+  function showNextNotif() {
+    notifSlides[notifIndex].style.display = 'none';
+    notifIndex = (notifIndex + 1) % notifSlides.length;
+    notifSlides[notifIndex].style.display = 'flex';
+  }
+
+  setInterval(showNextNotif, 4000);
 </script>
+
+<!-- SECTION COMPLÈTE : HORAIRES + TÉMOIGNAGES + PUBLICATIONS + RÉSEAUX SOCIAUX -->
+<section style="background: linear-gradient(90deg,#80d4ff,#c0eaff,#e0f7ff); padding:40px 18px; border-radius:12px; margin:20px 18px; display:flex; flex-wrap:wrap; gap:30px;">
+
+  <!-- BLOC HORAIRES & DISPONIBILITÉ -->
+  <div style="flex:1; min-width:260px; background:#ffffffb3; padding:20px; border-radius:12px; box-shadow:0 4px 8px rgba(0,0,0,0.08); height:max-content;">
+    <h3 style="color:#003580; margin-bottom:15px; font-size:20px;">Horaires & Disponibilité</h3>
+
+    <p style="margin:8px 0; color:#222; font-size:14px;">
+      <strong>Lundi – Samedi :</strong> Ouvert <span style="color:green;">&#x2714;</span>
+    </p>
+
+    <p style="margin:8px 0; color:#222; font-size:14px;">
+      <strong>Dimanche :</strong> Fermé <span style="color:#cc0033;">&#x2716;</span>
+    </p>
+
+    <hr style="border:0; border-top:1px solid #d0e6ff; margin:15px 0;">
+
+    <p style="margin:8px 0; color:#003580; font-weight:600; font-size:14px;">En cas d’urgence :</p>
+
+    <p style="margin:8px 0; color:#222; font-size:14px;">
+      Vous pouvez nous écrire via WhatsApp, Messenger, Instagram, TikTok ou Email. Nous répondons rapidement.
+    </p>
+
+    <!-- Boutons contact rapide -->
+    <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
+      <a href="https://wa.me/243904649754" target="_blank" style="flex:1; text-align:center; padding:8px 0; background:#25d366; color:#fff; border-radius:8px; text-decoration:none; font-weight:600;">WhatsApp</a>
+      <a href="mailto:contact@splendideinfoservice.com" style="flex:1; text-align:center; padding:8px 0; background:#cc0033; color:#fff; border-radius:8px; text-decoration:none; font-weight:600;">Email</a>
+    </div>
+  </div>
+
+  <!-- TES TÉMOIGNAGES (NON MODIFIÉS) -->
+  <div style="flex:2; min-width:300px; text-align:center;">
+    <h2 style="color:#003580; margin-bottom:32px;">Ce que disent nos clients</h2>
+
+    <div class="chat-slider" style="overflow:hidden; max-width:800px; margin:0 auto; position:relative;">
+      <div class="chat-track" style="display:flex; flex-direction:column; gap:20px; transition: transform 0.5s ease;">
+
+        <!-- Message 1 -->
+        <div style="display:flex; align-items:flex-start; gap:12px;">
+          <img src="WhatsApp Image 2025-10-29 à 08.09.49_cb8518f9.jpg" alt="Client 1" style="width:60px; height:60px; border-radius:50%; object-fit:cover;">
+          <div style="background:#fff; border-radius:12px; padding:14px 18px; position:relative; box-shadow:0 4px 8px rgba(0,0,0,0.1); flex:1;">
+            <p style="margin:0; color:#222; font-size:14px;">“Service très rapide et efficace. Mon entreprise utilise désormais Splendide Info Service pour toutes nos impressions et reliures.”</p>
+            <span style="position:absolute; top:12px; left:-8px; width:0; height:0; border-top:8px solid transparent; border-bottom:8px solid transparent; border-right:8px solid #fff;"></span>
+          </div>
+        </div>
+
+        <!-- Message 2 -->
+        <div style="display:flex; align-items:flex-start; gap:12px; flex-direction:row-reverse;">
+          <img src="IMG_7069.jpg" alt="Client 2" style="width:60px; height:60px; border-radius:50%; object-fit:cover;">
+          <div style="background:#fff; border-radius:12px; padding:14px 18px; position:relative; box-shadow:0 4px 8px rgba(0,0,0,0.1); flex:1;">
+            <p style="margin:0; color:#222; font-size:14px;">“Excellente plateforme pour étudiants et professionnels. Les impressions sont de qualité et la livraison est rapide.”</p>
+            <span style="position:absolute; top:12px; right:-8px; width:0; height:0; border-top:8px solid transparent; border-bottom:8px solid transparent; border-left:8px solid #fff;"></span>
+          </div>
+        </div>
+
+        <!-- Message 3 -->
+        <div style="display:flex; align-items:flex-start; gap:12px;">
+          <img src="istockphoto-2173310049-612x612.jpg" alt="Client 3" style="width:60px; height:60px; border-radius:50%; object-fit:cover;">
+          <div style="background:#fff; border-radius:12px; padding:14px 18px; position:relative; box-shadow:0 4px 8px rgba(0,0,0,0.1); flex:1;">
+            <p style="margin:0; color:#222; font-size:14px;">“Très satisfait du service de plastification et de scan. Le personnel est accueillant et compétent.”</p>
+            <span style="position:absolute; top:12px; left:-8px; width:0; height:0; border-top:8px solid transparent; border-bottom:8px solid transparent; border-right:8px solid #fff;"></span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Bouton Contact -->
+    <div style="margin-top:24px;">
+      <a href="mailto:omerphambu@gmail.com"
+         style="display:inline-block; padding:12px 24px; background: linear-gradient(90deg,#00bfff,#cc0033); color:#fff; border-radius:8px; font-weight:600; text-decoration:none;">
+        Nous contacter
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- TES ICÔNES RÉSEAUX SOCIAUX (NON MODIFIÉS) -->
+<div style="position:fixed; bottom:20px; right:20px; display:flex; flex-direction:column; gap:12px; z-index:999;">
+
+  <!-- WhatsApp -->
+  <a href="https://wa.me/243904649754" target="_blank"
+     style="background:#25d366; width:50px; height:50px; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 8px rgba(0,0,0,0.2);">
+    <svg width="26" height="26" viewBox="0 0 32 32" fill="white">
+      <path d="M16.027 3C9.39 3 4 8.39 4 15.027c0 2.65.86 5.1 2.33 7.1L4 29l7.1-2.33c1.99 1.47 4.45 2.33 7.1 2.33C22.61 29 28 23.61 28 16.973 28 8.39 22.61 3 16.027 3zm0 23.47c-2.38 0-4.58-.77-6.33-2.07l-.45-.33-4.22 1.38 1.38-4.22-.33-.45A10.4 10.4 0 0 1 5.6 15c0-5.75 4.68-10.4 10.43-10.4 5.75 0 10.4 4.65 10.4 10.4 0 5.75-4.65 10.47-10.4 10.47zm5.66-7.8c-.3-.15-1.77-.87-2.05-.97-.28-.1-.48-.15-.68.15-.2.3-.78.97-.95 1.17-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.47-.88-.8-1.47-1.78-1.65-2.08-.17-.3-.02-.46.13-.61.14-.14.3-.35.45-.52.15-.17.2-.3.3-.5s.05-.37-.02-.52c-.07-.15-.68-1.63-.93-2.23-.24-.57-.48-.48-.68-.48-.17 0-.37-.02-.57-.02-.2 0-.52.07-.8.37-.28.3-1.07 1.05-1.07 2.55 0 1.5 1.1 2.95 1.25 3.15.15.2 2.17 3.3 5.25 4.62.73.32 1.3.5 1.75.65.73.23 1.4.2 1.93.12.6-.1 1.77-.72 2.02-1.42.25-.7.25-1.3.18-1.42-.07-.12-.27-.2-.57-.35z"/>
+    </svg>
+  </a>
+
+  <!-- Facebook -->
+  <a href="https://facebook.com" target="_blank"
+     style="background:#1877f2; width:50px; height:50px; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 8px rgba(0,0,0,0.2);">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+      <path d="M22 12a10 10 0 1 0-11.5 9.87v-7H8v-3h2.5V9.5a3.5 3.5 0 0 1 3.75-3.85c.75 0 1.55.1 1.55.1v2.2h-.87A1.78 1.78 0 0 0 13.5 10v2h3l-.5 3h-2.5v7A10 10 0 0 0 22 12"/>
+    </svg>
+  </a>
+
+  <!-- Instagram -->
+  <a href="https://instagram.com" target="_blank"
+     style="background:#e1306c; width:50px; height:50px; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 8px rgba(0,0,0,0.2);">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="white">
+      <path d="M7 2C4.243 2 2 4.243 2 7v10c0 2.757 2.243 5 5 5h10c2.758 0 5-2.243 5-5V7c0-2.757-2.242-5-5-5H7zm10 2c1.654 0 3 1.346 3 3v10c0 1.654-1.346 3-3 3H7c-1.654 0-3-1.346-3-3V7c0-1.654 1.346-3 3-3h10zm-5 3a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 2a3 3 0 1 1-.002 6.002A3 3 0 0 1 12 9zm4.5-3a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"/>
+    </svg>
+  </a>
+
+  <!-- TikTok -->
+  <a href="https://tiktok.com" target="_blank"
+     style="background:#000000; width:50px; height:50px; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 8px rgba(0,0,0,0.2);">
+    <svg width="22" height="22" viewBox="0 0 48 48" fill="white">
+      <path d="M31.3 6a9.9 9.9 0 0 0 4.9 8.6 9.8 9.8 0 0 0 4.8 1.3v5.8a15.7 15.7 0 0 1-9.7-3.2v14.5a10.5 10.5 0 1 1-10.5-10.5c.5 0 1 .1 1.5.2v6a4.6 4.6 0 1 0 4-4.5V6h5z"/>
+    </svg>
+  </a>
+
+  <!-- Email -->
+  <a href="mailto:contact@splendideinfoservice.com"
+     style="background:#cc0033; width:50px; height:50px; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 8px rgba(0,0,0,0.2);">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="white">
+      <path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/>
+    </svg>
+  </a>
+
+</div>
+
+<!-- SLIDER JS SIMPLE (défilement vertical automatique) -->
+<script>
+  const chatTrack = document.querySelector('.chat-track');
+  const chatSlides = document.querySelectorAll('.chat-track > div');
+  let chatIndex = 0;
+
+  function showNextChat(){
+    chatIndex = (chatIndex + 1) % chatSlides.length;
+    chatTrack.style.transform = `translateY(${-chatSlides[0].offsetHeight * chatIndex}px)`;
+  }
+
+  setInterval(showNextChat, 4000);
+</script>
+  <footer>
+    © 2025 Splendide Info Service - Tous droits réservés
+  </footer>
+
+  <script>
+    // HERO slider simple
+    (function(){
+      const slides = document.querySelectorAll('.slide');
+      let i=0; setInterval(()=>{
+        slides[i].classList.remove('active'); 
+        i=(i+1)%slides.length; 
+        slides[i].classList.add('active');
+      },3500);
+    })();
+  </script>
 
 </body>
 </html>
