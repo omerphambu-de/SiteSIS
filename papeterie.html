@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Papeterie – Splendide Info Service</title>
+<style>
+:root{
+  --primary:#003580;
+  --accent:#f4f8ff;
+  --cta:#ff6b00;
+  --hover:#002a66;
+  --bg-gradient: linear-gradient(to bottom, #cce7f7, #87ceeb);
+  --card-gradient: linear-gradient(to bottom right, #ffffff, #e0f0ff);
+}
+
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Inter',Arial,sans-serif;}
+body{background:var(--bg-gradient);color:#222;}
+
+/* Header */
+header{background:#fff;box-shadow:0 4px 12px rgba(0,0,0,0.1);padding:16px 24px;position:sticky;top:0;z-index:100;}
+h1{text-align:center;color:var(--primary);font-size:32px;margin-bottom:16px;}
+h1 a{text-decoration:none;color:var(--primary);transition:color 0.3s;}
+h1 a:hover{color:var(--cta);}
+.nav-cats{text-align:center;margin-bottom:24px;}
+.nav-cats a{display:inline-block;margin:6px 8px;padding:10px 16px;border-radius:8px;color:var(--primary);font-weight:600;border:1px solid transparent;text-decoration:none;transition:all 0.2s;}
+.nav-cats a:hover{background:var(--primary);color:#fff;border-color:var(--primary);}
+
+/* Slider */
+.slider{position:relative;width:100%;max-width:1200px;margin:0 auto 40px;overflow:hidden;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,0.15);}
+.slides{display:flex;transition:transform 0.5s ease;}
+.slide{min-width:100%;position:relative;}
+.slide img{width:100%;height:300px;object-fit:cover;}
+.slide .caption{position:absolute;bottom:20px;left:20px;background:rgba(0,0,0,0.5);color:#fff;padding:10px 16px;border-radius:8px;font-size:18px;}
+
+/* Flèches */
+.arrow{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,0.5);color:#fff;padding:10px;border-radius:50%;cursor:pointer;z-index:10;user-select:none;}
+.arrow:hover{background:var(--cta);}
+.arrow-left{left:10px;}
+.arrow-right{right:10px;}
+
+/* Points */
+.dots{position:absolute;bottom:10px;width:100%;text-align:center;}
+.dot{display:inline-block;width:12px;height:12px;margin:0 4px;background:#fff;border-radius:50%;opacity:0.5;cursor:pointer;transition:opacity 0.3s;}
+.dot.active{opacity:1;}
+
+/* Grille produits */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;padding:0 24px 24px;}
+.product{background:var(--card-gradient);border-radius:12px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,0.08);text-align:center;transition:transform 0.3s,box-shadow 0.3s;position:relative;opacity:0;transform:translateY(20px);}
+.product.visible{opacity:1;transform:translateY(0);transition:transform 0.6s ease,opacity 0.6s ease;}
+.product:hover{transform:translateY(-8px) scale(1.02);box-shadow:0 12px 24px rgba(0,0,0,0.2);}
+.product img{width:100%;height:180px;object-fit:cover;transition:transform 0.3s;}
+.product img:hover{transform:scale(1.05);}
+.product h3{color:#111;font-size:18px;margin:12px 0 6px 0;}
+.product .price{color:var(--primary);font-weight:700;font-size:16px;margin-bottom:12px;}
+.product .badge{position:absolute;top:12px;left:12px;background:var(--cta);color:#fff;padding:4px 8px;font-size:12px;border-radius:6px;font-weight:700;}
+.btn{background:var(--cta);color:#fff;border:none;padding:10px 16px;border-radius:8px;font-weight:700;cursor:pointer;transition:background 0.2s, transform 0.2s;display:inline-block;text-decoration:none;}
+.btn:hover{background:var(--hover);transform:scale(1.05);}
+
+/* Footer */
+footer{background:var(--primary);color:#fff;text-align:center;padding:20px;margin-top:32px;font-size:14px;}
+
+/* Responsive */
+@media (max-width:768px){h1{font-size:26px;}.nav-cats a{padding:8px 12px;margin:4px;}}
+</style>
+</head>
+<body>
+
+<header>
+  <h1><a href="index.html">Papeterie – Splendide Info Service</a></h1>
+  <nav class="nav-cats">
+    <header>
+    <a href="index.html">Accueil</a>
+    <a href="fourniture.html">Fournitures</a>
+    <a href="papeterie.html">Papeterie</a>
+    <a href="impression.html">Impression</a>
+    <a href="bureautique.html">Bureautique</a>
+    <a href="scan-plastification.html">Scan & Plastification</a>
+    <a href="services.html">Services pros</a>
+    <a href="promotions.html">Promotions</a>
+  </nav>
+</header>
+
+<!-- Slider -->
+<div class="slider">
+  <div class="slides">
+    <div class="slide"><img src="promo-papeterie1.jpg" alt="Promo Papeterie 1"><div class="caption">Papier 80g – 500 feuilles à prix spécial</div></div>
+    <div class="slide"><img src="promo-papeterie2.jpg" alt="Promo Papeterie 2"><div class="caption">Cahiers A4 – Offre Étudiante</div></div>
+    <div class="slide"><img src="promo-papeterie3.jpg" alt="Promo Papeterie 3"><div class="caption">Stylos & Crayons – Remise exceptionnelle</div></div>
+  </div>
+  <div class="arrow arrow-left">&#10094;</div>
+  <div class="arrow arrow-right">&#10095;</div>
+  <div class="dots">
+    <span class="dot active"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+  </div>
+</div>
+
+<!-- Produits -->
+<section class="grid">
+  <div class="product"><div class="badge">Offre Spéciale</div><img src="124468_NjIwLTYyMC00YzFiODdjY2Qy.webp" alt="Papier 80g"><h3>Papier 80g (500 feuilles)</h3><div class="price">6 500 FCFA</div><a class="btn" href="https://wa.me/243904649754?text=Bonjour, je veux commander Papier 80g" target="_blank">Commander via WhatsApp</a></div>
+  <div class="product"><div class="badge">Offre Spéciale</div><img src="images (12).jfif" alt="Cahiers A4"><h3>Cahiers A4</h3><div class="price">3 000 FCFA</div><a class="btn" href="https://wa.me/243904649754?text=Bonjour, je veux commander Cahiers A4" target="_blank">Commander via WhatsApp</a></div>
+  <div class="product"><div class="badge">Offre Spéciale</div><img src="rame-a3-80g-aone-abidjan.webp" alt="Stylos bille"><h3>Stylos bille</h3><div class="price">1 500 FCFA</div><a class="btn" href="https://wa.me/243904649754?text=Bonjour, je veux commander Stylos bille" target="_blank">Commander via WhatsApp</a></div>
+  <div class="product"><div class="badge">Offre Spéciale</div><img src="mondoffice-papier-a4-blanc-premium-80g-ramette-500-feuilles_07853-00J.webp" alt="Crayons HB"><h3>Crayons HB</h3><div class="price">1 000 FCFA</div><a class="btn" href="https://wa.me/243904649754?text=Bonjour, je veux commander Crayons HB" target="_blank">Commander via WhatsApp</a></div>
+  <div class="product"><div class="badge">Offre Spéciale</div><img src="02-choix-papier-a4-1.jpg" alt="Surligneurs"><h3>Surligneurs</h3><div class="price">2 000 FCFA</div><a class="btn" href="https://wa.me/243904649754?text=Bonjour, je veux commander Surligneurs" target="_blank">Commander via WhatsApp</a></div>
+
+  <div class="product"><div class="badge">Offre Spéciale</div><img src="124468_NjIwLTYyMC00YzFiODdjY2Qy.webp" alt="Papier 80g"><h3>Papier 80g (500 feuilles)</h3><div class="price">6 500 FCFA</div><a class="btn" href="https://wa.me/243904649754?text=Bonjour, je veux commander Papier 80g" target="_blank">Commander via WhatsApp</a></div>
+  <div class="product"><div class="badge">Offre Spéciale</div><img src="images (12).jfif" alt="Cahiers A4"><h3>Cahiers A4</h3><div class="price">3 000 FCFA</div><a class="btn" href="https://wa.me/243904649754?text=Bonjour, je veux commander Cahiers A4" target="_blank">Commander via WhatsApp</a></div>
+  <div class="product"><div class="badge">Offre Spéciale</div><img src="rame-a3-80g-aone-abidjan.webp" alt="Stylos bille"><h3>Stylos bille</h3><div class="price">1 500 FCFA</div><a class="btn" href="https://wa.me/243904649754?text=Bonjour, je veux commander Stylos bille" target="_blank">Commander via WhatsApp</a></div>
+  <div class="product"><div class="badge">Offre Spéciale</div><img src="mondoffice-papier-a4-blanc-premium-80g-ramette-500-feuilles_07853-00J.webp" alt="Crayons HB"><h3>Crayons HB</h3><div class="price">1 000 FCFA</div><a class="btn" href="https://wa.me/243904649754?text=Bonjour, je veux commander Crayons HB" target="_blank">Commander via WhatsApp</a></div>
+  <div class="product"><div class="badge">Offre Spéciale</div><img src="02-choix-papier-a4-1.jpg" alt="Surligneurs"><h3>Surligneurs</h3><div class="price">2 000 FCFA</div><a class="btn" href="https://wa.me/243904649754?text=Bonjour, je veux commander Surligneurs" target="_blank">Commander via WhatsApp</a></div>
+  <div class="product"><div class="badge">Offre Spéciale</div><img src="124468_NjIwLTYyMC00YzFiODdjY2Qy.webp" alt="Papier 80g"><h3>Papier 80g (500 feuilles)</h3><div class="price">6 500 FCFA</div><a class="btn" href="https://wa.me/243904649754?text=Bonjour, je veux commander Papier 80g" target="_blank">Commander via WhatsApp</a></div>
+  <div class="product"><div class="badge">Offre Spéciale</div><img src="images (12).jfif" alt="Cahiers A4"><h3>Cahiers A4</h3><div class="price">3 000 FCFA</div><a class="btn" href="https://wa.me/243904649754?text=Bonjour, je veux commander Cahiers A4" target="_blank">Commander via WhatsApp</a></div>
+  <div class="product"><div class="badge">Offre Spéciale</div><img src="rame-a3-80g-aone-abidjan.webp" alt="Stylos bille"><h3>Stylos bille</h3><div class="price">1 500 FCFA</div><a class="btn" href="https://wa.me/243904649754?text=Bonjour, je veux commander Stylos bille" target="_blank">Commander via WhatsApp</a></div>
+  <div class="product"><div class="badge">Offre Spéciale</div><img src="mondoffice-papier-a4-blanc-premium-80g-ramette-500-feuilles_07853-00J.webp" alt="Crayons HB"><h3>Crayons HB</h3><div class="price">1 000 FCFA</div><a class="btn" href="https://wa.me/243904649754?text=Bonjour, je veux commander Crayons HB" target="_blank">Commander via WhatsApp</a></div>
+  <div class="product"><div class="badge">Offre Spéciale</div><img src="02-choix-papier-a4-1.jpg" alt="Surligneurs"><h3>Surligneurs</h3><div class="price">2 000 FCFA</div><a class="btn" href="https://wa.me/243904649754?text=Bonjour, je veux commander Surligneurs" target="_blank">Commander via WhatsApp</a></div>
+</section>
+
+<footer>© 2025 Splendide Info Service - Tous droits réservés</footer>
+
+<script>
+// Animation au scroll pour les produits
+const products = document.querySelectorAll('.product');
+function reveal() {
+  const triggerBottom = window.innerHeight * 0.85;
+  products.forEach(product => {
+    const productTop = product.getBoundingClientRect().top;
+    if(productTop < triggerBottom) {
+      product.classList.add('visible');
+    }
+  });
+}
+window.addEventListener('scroll', reveal);
+window.addEventListener('load', reveal);
+
+// Slider
+let index = 0;
+const slides = document.querySelector('.slides');
+const totalSlides = document.querySelectorAll('.slide').length;
+const dots = document.querySelectorAll('.dot');
+
+function showSlide(i){
+  index = (i + totalSlides) % totalSlides;
+  slides.style.transform = `translateX(-${index*100}%)`;
+  dots.forEach(dot=>dot.classList.remove('active'));
+  dots[index].classList.add('active');
+}
+
+document.querySelector('.arrow-left').addEventListener('click',()=>{showSlide(index-1);});
+document.querySelector('.arrow-right').addEventListener('click',()=>{showSlide(index+1);});
+dots.forEach((dot,i)=>dot.addEventListener('click',()=>{showSlide(i);}));
+
+setInterval(()=>{showSlide(index+1);},4000);
+</script>
+
+</body>
+</html>

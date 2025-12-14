@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Splendide Info Service - Accueil</title>
+
+<style>
+/* ===== RESET ===== */
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+    font-family:'Segoe UI', Tahoma, sans-serif;
+    background:#eef2f7;
+    color:#333;
+    overflow-x:hidden;
+}
+
+/* ===== ANIMATIONS ===== */
+.fade-in{
+    animation:fadeIn 1s ease forwards;
+    opacity:0;
+}
+@keyframes fadeIn{
+    from{opacity:0;transform:translateY(20px);}
+    to{opacity:1;transform:translateY(0);}
+}
+
+/* ===== SLIDER ===== */
+.slider{
+    width:100%;height:260px;position:relative;overflow:hidden;
+}
+.slide{
+    position:absolute;width:100%;height:100%;
+    background-size:cover;background-position:center;
+    opacity:0;transition:opacity 1.2s ease;
+    display:flex;flex-direction:column;justify-content:center;align-items:center;
+    color:white;text-align:center;padding:0 20px;
+}
+.slide.active{opacity:1;}
+
+.slide-overlay{
+    position:absolute;width:100%;height:100%;
+    background:rgba(0,0,0,0.45);
+    top:0;left:0;
+    backdrop-filter:blur(2px);
+}
+.slide-content{position:relative;z-index:2;}
+
+.slide h1{
+    font-size:1.4em;
+    background:rgba(0,0,0,0.4);
+    padding:10px 20px;border-radius:12px;
+}
+.slide h1 img{
+    width:85px;height:70px;object-fit:contain;margin-bottom:4px;
+}
+.slide p{
+    background:rgba(0,0,0,0.35);
+    padding:8px 14px;border-radius:10px;margin-top:10px;
+    font-size:0.95em;
+}
+
+/* ===== MENU ===== */
+.menu{
+    background:white;
+    padding:12px 5px;
+    display:flex;justify-content:space-around;
+    font-size:0.85em;
+    border-bottom:3px solid #003580;
+    position:sticky;top:0;z-index:20;
+    box-shadow:0 2px 8px rgba(0,0,0,0.1);
+}
+.menu a{
+    color:#003580;font-weight:bold;text-decoration:none;
+    transition:0.3s;
+}
+.menu a:hover{opacity:0.7;}
+
+/* ===== TITRES ===== */
+.section-title{
+    font-size:1.5em;
+    color:#003580;
+    font-weight:700;
+    border-left:5px solid #003580;
+    padding-left:10px;
+    margin-bottom:22px;
+}
+
+/* ===== RÉALISATIONS MODERNES ===== */
+.photos {
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:20px;
+}
+
+.card {
+  position:relative;
+  overflow:hidden;
+  border-radius:15px;
+  cursor:pointer;
+}
+
+.card img {
+  width:100%;
+  height:220px;
+  object-fit:cover;
+  transition: transform 0.5s ease;
+}
+
+.card:hover img {
+  transform: scale(1.1);
+}
+
+.card-overlay {
+  position:absolute;
+  bottom:0;
+  left:0;
+  right:0;
+  background:rgba(0,0,0,0.55);
+  color:white;
+  padding:15px;
+  opacity:0;
+  transition: opacity 0.4s ease;
+}
+
+.card:hover .card-overlay {
+  opacity:1;
+}
+
+.card-overlay h3 {
+  margin-bottom:5px;
+}
+
+/* ===== LIGHTBOX ===== */
+#lightbox {
+  position:fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  background:rgba(0,0,0,0.85);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:1000;
+}
+
+#lightbox img {
+  max-width:90%;
+  max-height:80%;
+  border-radius:12px;
+}
+
+/* ===== BUREAUTIQUE ===== */
+.bureautique-card{
+    background:linear-gradient(135deg,#003580,#005ad5);
+    color:white;padding:20px;border-radius:14px;font-size:0.95em;
+    box-shadow:0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* ===== AVANTAGES ===== */
+.advantages{
+    display:grid;gap:15px;
+}
+.adv-card{
+    background:linear-gradient(135deg,#2575fc,#6a11cb);
+    padding:18px;color:white;border-radius:12px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.15);
+}
+.adv-card h3{margin-bottom:6px;font-size:1.1em;}
+
+/* ===== TÉMOIGNAGES ===== */
+.testimonial{
+    display:flex;gap:12px;align-items:flex-start;
+}
+.testimonial img{
+    width:55px;height:55px;border-radius:50%;object-fit:cover;
+}
+.testimonial-text{
+    background:linear-gradient(135deg,#25D366,#128C7E);
+    padding:12px;border-radius:14px;color:white;
+    font-size:0.9em;box-shadow:0 3px 8px rgba(0,0,0,0.15);
+}
+
+/* ===== CONTACT ===== */
+.contact-info a{
+    display:block;margin:10px auto;padding:12px 15px;width:92%;
+    text-align:center;background:#003580;color:white;
+    border-radius:25px;font-size:1em;text-decoration:none;
+    box-shadow:0 4px 10px rgba(0,0,0,0.15);
+    transition:0.3s;
+}
+.contact-info a:hover{opacity:0.8;}
+
+/* ===== FOOTER ===== */
+footer{
+    background:#003580;color:white;text-align:center;
+    padding:20px;margin-top:40px;
+    font-size:0.85em;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 992px) { .photos { grid-template-columns:repeat(2,1fr); } }
+@media (max-width: 600px) { .photos { grid-template-columns:1fr; } .card img { height:160px; } }
+</style>
+</head>
+<body>
+
+<!-- SLIDER -->
+<div class="slider fade-in">
+    <div class="slide active" style="background-image:url('jk.jpg');">
+        <div class="slide-overlay"></div>
+        <div class="slide-content">
+            <h1><img src="loi.png">Bienvenue chez Splendide Info Service</h1>
+            <p>Des solutions professionnelles à votre service</p>
+        </div>
+    </div>
+    <div class="slide" style="background-image:url('moi.webp');">
+        <div class="slide-overlay"></div>
+        <div class="slide-content">
+            <h1><img src="loi.png">Un service fiable et rapide</h1>
+            <p>Gestion, secrétariat et technologies modernes</p>
+        </div>
+    </div>
+    <div class="slide" style="background-image:url('photo.jpg');">
+        <div class="slide-overlay"></div>
+        <div class="slide-content">
+            <h1><img src="loi.png">Professionnalisme garanti</h1>
+            <p>Votre satisfaction est notre priorité</p>
+        </div>
+    </div>
+</div>
+
+<!-- MENU -->
+<nav class="menu fade-in">
+  <a href="index.html">Accueil</a>
+  <a href="services.html">Services</a>
+  <a href="nos-tarifs.html">Tarifs</a>
+  <a href="a-propos.html">À propos</a>
+  <a href="bibliotheque1.html">Galerie</a>
+</nav>
+
+<!-- NOS RÉALISATIONS -->
+<section class="fade-in">
+  <h2 class="section-title">Nos Réalisations</h2>
+  <div class="photos">
+    <div class="card"><img src="calendrier.jpg" alt="Calendriers" onclick="openLightbox(this)"><div class="card-overlay"><h3>Calendriers</h3><p>Création de calendriers personnalisés.</p></div></div>
+    <div class="card"><img src="plasfication.jpg" alt="Plastification" onclick="openLightbox(this)"><div class="card-overlay"><h3>Plastification</h3><p>Protection durable de vos documents.</p></div></div>
+    <div class="card"><img src="scanne.jpg" alt="Scannage" onclick="openLightbox(this)"><div class="card-overlay"><h3>Scannage</h3><p>Numérisation claire et rapide.</p></div></div>
+    <div class="card"><img src="scanne.jpg" alt="Flyers" onclick="openLightbox(this)"><div class="card-overlay"><h3>Flyers</h3><p>Design créatif et impression professionnelle.</p></div></div>
+    <div class="card"><img src="POUDRE QUASIL.jpg" alt="Brochures" onclick="openLightbox(this)"><div class="card-overlay"><h3>Brochures</h3><p>Conception graphique et mise en page soignée.</p></div></div>
+    <div class="card"><img src="reluire.webp" alt="Affiches" onclick="openLightbox(this)"><div class="card-overlay"><h3>Affiches</h3><p>Affichage attractif pour vos événements.</p></div></div>
+  </div>
+</section>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" onclick="closeLightbox()">
+  <img id="lightbox-img" src="">
+</div>
+
+<!-- BUREAUTIQUE -->
+<section class="fade-in">
+  <h2 class="section-title">Notre Bureautique</h2>
+  <div class="bureautique-card">
+    Notre service de bureautique offre un accompagnement professionnel adapté pour documents académiques, administratifs et informatiques.
+  </div>
+</section>
+
+<!-- AVANTAGES -->
+<section class="fade-in">
+  <h2 class="section-title">Pourquoi nous choisir</h2>
+  <div class="advantages">
+    <div class="adv-card"><h3>Rapide</h3><p>Nous intervenons rapidement pour vos besoins.</p></div>
+    <div class="adv-card"><h3>Professionnel</h3><p>Une équipe qualifiée et rigoureuse.</p></div>
+    <div class="adv-card"><h3>Fiable</h3><p>Des solutions durables et sûres.</p></div>
+  </div>
+</section>
+
+<!-- TÉMOIGNAGES -->
+<section class="fade-in">
+  <h2 class="section-title">Témoignages clients</h2>
+  <div class="testimonials">
+    <div class="testimonial">
+      <img src="IMG_7069.jpg">
+      <div class="testimonial-text">"Excellent service." - Michel B.</div>
+    </div>
+    <div class="testimonial">
+      <img src="photo.jpg">
+      <div class="testimonial-text">"Professionnel et rapide." - Laure P.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="fade-in">
+  <h2 class="section-title">Contact rapide</h2>
+  <div class="contact-info">
+    <a href="tel:050146003">Appeler : 050 146 003</a>
+    <a href="https://wa.me/243904649754?text=Bonjour%20SIS">WhatsApp</a>
+    <a href="mailto:omerphambu@gmail.com">Email</a>
+    <a href="https://www.google.com/maps/search/?api=1&query=Grand+Marché">Voir Grand Marché</a>
+  </div>
+</section>
+
+<footer>
+  © 2025 Splendide Info Service - Tous droits réservés
+</footer>
+
+<script>
+// SLIDER
+let idx=0;
+const slides=document.querySelectorAll('.slide');
+setInterval(()=>{
+    slides[idx].classList.remove('active');
+    idx=(idx+1)%slides.length;
+    slides[idx].classList.add('active');
+},3000);
+
+// LIGHTBOX
+function openLightbox(img){
+  document.getElementById('lightbox-img').src = img.src;
+  document.getElementById('lightbox').style.display = 'flex';
+}
+function closeLightbox(){
+  document.getElementById('lightbox').style.display = 'none';
+}
+</script>
+
+</body>
+</html>

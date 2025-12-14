@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Splendide Info Service - Accueil</title>
+  <style>
+    :root{--primary:#003580;--accent:#f4f8ff;--muted:#6b7280;--cta:#ff6b00}
+    *{box-sizing:border-box}
+    body{font-family:Inter, 'Segoe UI', Arial, sans-serif;background:#fff;color:#222;margin:0}
+    a{color:inherit;text-decoration:none}
+
+    /* Topbar */
+    .topbar{background:#0b66c3;color:#fff;font-size:14px;padding:6px 12px;display:flex;justify-content:space-between;align-items:center}
+    .topbar .promo{display:flex;gap:18px;align-items:center}
+    .topbar .promo span{opacity:0.95}
+
+    /* Header */
+    header{border-bottom:1px solid #e6eef9}
+    .header-main{display:flex;align-items:center;justify-content:space-between;padding:14px 18px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand img{height:48px}
+    .brand h1{font-size:20px;color:var(--primary);margin:0}
+
+    /* Search + icons */
+    .search-wrap{flex:1;max-width:720px;margin:0 20px}
+    .search{display:flex;border:1px solid #d7e7fb;border-radius:8px;overflow:hidden}
+    .search input{flex:1;padding:12px 14px;border:0;font-size:15px}
+    .search button{background:var(--primary);color:#fff;border:0;padding:10px 16px;font-weight:600}
+    .icons{display:flex;gap:12px;align-items:center}
+    .icon-btn{display:flex;flex-direction:column;align-items:center;font-size:12px;color:var(--muted)}
+    .icon-btn strong{color:var(--primary);font-size:13px}
+
+    /* Categories nav */
+    .nav-cats{display:flex;gap:12px;padding:12px 18px;background:var(--accent);overflow:auto}
+    .nav-cats a{padding:9px 14px;border-radius:8px;color:var(--primary);background:transparent;border:1px solid transparent;white-space:nowrap}
+    .nav-cats a:hover{background:#e8f2ff}
+
+    /* Hero */
+    .hero{display:grid;grid-template-columns:1fr 420px;gap:18px;padding:22px 18px}
+    .hero-card{background:linear-gradient(90deg,#f7fbff,#eef6ff);padding:22px;border-radius:12px}
+    .hero-card h2{color:var(--primary);margin:0 0 8px}
+    .hero-slider{position:relative;overflow:hidden;border-radius:12px;height:320px}
+    .slide{position:absolute;inset:0;background-size:cover;background-position:center;transition:opacity .7s;opacity:0}
+    .slide.active{opacity:1}
+
+    /* Services & Products */
+    .services-section, .products-section{padding:40px 18px}
+    .services-grid, .products-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
+    .service-card, .product-card{background:#fff;border:1px solid #eef6ff;border-radius:10px;padding:16px;text-align:center}
+    .service-card img, .product-card img{width:100%;height:150px;object-fit:cover;border-radius:8px}
+    .service-card h3, .product-card h3{color:var(--primary);margin:12px 0}
+    .service-card p, .product-card p{color:var(--muted);font-size:14px}
+
+    /* Footer */
+    footer{background:var(--primary);color:#fff;padding:24px;font-size:14px;margin-top:26px;text-align:center}
+
+    /* Responsive */
+    @media(max-width:1100px){.hero{grid-template-columns:1fr 320px}}
+    @media(max-width:800px){.hero{grid-template-columns:1fr}}
+    @media(max-width:480px){.topbar{font-size:13px}.brand img{height:40px}}
+  </style>
+</head>
+<body>
+
+  <!-- TOP PROMO -->
+  <div class="topbar">
+    <div class="promo">
+      <span>Livraison gratuite 24/48h</span>
+      <span>Satisfait ou remboursé</span>
+      <span>Newsletter : 10€ HT offerts</span>
+    </div>
+    <div class="contact">📞 050 146 003</div>
+  </div>
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-main">
+      <div class="brand">
+        <img src="loi.png" alt="Logo SIS">
+        <div>
+          <h1>Splendide Info Service</h1>
+          <div style="font-size:12px;color:var(--muted)">Secrétariat • Bureautique • Impression</div>
+        </div>
+      </div>
+
+      <div class="search-wrap">
+        <form class="search" onsubmit="event.preventDefault();searchProducts()">
+          <input id="searchInput" placeholder="Rechercher un produit, une référence...">
+          <button type="submit">Rechercher</button>
+        </form>
+      </div>
+
+      <div class="icons">
+        <a class="icon-btn" href="mailto:omerphambu@gmail.com"><strong>Email</strong></a>
+        <a class="icon-btn" href="https://wa.me/243904649754?text=Bonjour%20SIS"><strong>WhatsApp</strong></a>
+        <a class="icon-btn" href="#cart"><strong>Panier <span id="cartCount">0</span></strong></a>
+      </div>
+    </div>
+
+    <!-- CATEGORIES -->
+    <nav class="nav-cats">
+      <a href="#">Fournitures</a>
+      <a href="#">Papeterie</a>
+      <a href="#">Impression</a>
+      <a href="#">Bureautique</a>
+      <a href="#">Scan & Plastification</a>
+      <a href="#">Services pros</a>
+      <a href="#">Promotions</a>
+    </nav>
+  </header>
+
+  <!-- HERO + SIDEBAR -->
+  <main class="hero">
+    <section class="hero-card">
+      <div class="hero-slider" id="heroSlider">
+        <div class="slide active" style="background-image:url('reluire.webp')"></div>
+        <div class="slide" style="background-image:url('plasfication.jpg')"></div>
+        <div class="slide" style="background-image:url('photoo.jpg')"></div>
+        <div class="slide" style="background-image:url('moi.webp')"></div>
+        <div class="slide" style="background-image:url('POUDRE QUASIL.jpg')"></div>
+        <div class="slide" style="background-image:url('bussiness-man-hand-press-button-260nw-1105508111.jpg')"></div>
+      </div>
+      <div style="margin-top:14px">
+        <h2>Solutions complètes pour entreprises & étudiants</h2>
+        <p style="color:var(--muted);margin:6px 0 0">Impression, mise en page, rapports, reliures, plastification — service rapide et soigné.</p>
+      </div>
+    </section>
+<aside>
+  <div class="service-card" style="padding:18px; background:#eef6ff; border-radius:12px; border:1px solid #d7e7fb;">
+    <h3 style="margin:0 0 12px;color:var(--primary); font-size:20px;">Bienvenue sur Splendide Info Service</h3>
+    <p style="margin:0 0 10px;color:#333; font-size:15px; line-height:1.6;">
+      Splendide Info Service est votre plateforme de référence pour tous vos besoins en <strong>services professionnels et informatiques</strong>. 
+      Nous offrons des solutions complètes pour les entreprises, étudiants et particuliers : <strong>impression, reliure, scannage, cartes de visite, bureautique et formation informatique</strong>.  
+      Explorez nos produits et services directement sur notre site, profitez d'une navigation intuitive et trouvez facilement ce dont vous avez besoin.  
+      Chaque service est conçu pour être <strong>rapide, fiable et de qualité professionnelle</strong>.
+    </p>
+    <ul style="margin:10px 0 0; padding-left:20px; font-size:14px; line-height:1.5; color:#555;">
+      <li>Impression & reliure professionnelles</li>
+      <li>Numérisation et archivage sécurisé</li>
+      <li>Produits bureautiques et consommables</li>
+      <li>Formation Word, Excel et maintenance PC</li>
+      <li>Support rapide et conseils personnalisés</li>
+    </ul>
+    <a href="#services" class="btn" style="margin-top:12px; display:inline-block;">Découvrir nos services</a>
+  </div>
+</aside>
+
+
+  </main>
+
+  <!-- NOS SERVICES -->
+  <section class="services-section">
+    <h2>Nos Services</h2>
+    <div class="services-grid">
+      <div class="service-card">
+        <img src="formation.webp" alt="Formation Informatique">
+        <h3>Formation Informatique</h3>
+        <p>Apprenez Word, Excel et maintenance PC avec nos cours pratiques et interactifs pour tous niveaux.</p>
+      </div>
+      <div class="service-card">
+        <img src="carte.jpeg" alt="Cartes de Pointage">
+        <h3>Cartes de Pointage</h3>
+        <p>Cartes professionnelles pour entreprises et institutions avec suivi de présence fiable et sécurisé.</p>
+      </div>
+      <div class="service-card">
+        <img src="photoo.jpg" alt="Photo Minute">
+        <h3>Photo Minute</h3>
+        <p>Photos d’identité et portraits rapides avec impression de qualité immédiate.</p>
+      </div>
+      <div class="service-card">
+        <img src="scanne.jpg" alt="Scannage">
+        <h3>Scannage</h3>
+        <p>Numérisation de documents et fichiers avec haute résolution pour archivage et partage sécurisé.</p>
+      </div>
+      <div class="service-card">
+        <img src="reluire.webp" alt="Reliure">
+        <h3>Reliure</h3>
+        <p>Reliure professionnelle de documents, rapports et thèses avec finition soignée et durable.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- NOS PRODUITS -->
+  <section class="products-section">
+    <h2>Nos Produits</h2>
+    <div class="products-grid">
+      <div class="product-card">
+        <img src="calendrier.jpg" alt="Calendrier personnalisé A3">
+        <h3>Calendrier personnalisé A3</h3>
+        <p>Calendriers sur mesure avec logos et photos pour particuliers et entreprises.</p>
+      </div>
+      <div class="product-card">
+        <img src="plasfication.jpg" alt="Plastification A4">
+        <h3>Plastification A4</h3>
+        <p>Protège vos documents avec finition brillante ou mate pour un rendu professionnel.</p>
+      </div>
+      <div class="product-card">
+        <img src="photoo.jpg" alt="Scan + PDF">
+        <h3>Scan + PDF</h3>
+        <p>Numérisation et conversion de documents en PDF de haute qualité.</p>
+      </div>
+      <div class="product-card">
+        <img src="POUDRE QUASIL.jpg" alt="Poudre Quasil">
+        <h3>Poudre Quasil</h3>
+        <p>Produits de qualité pour vos besoins professionnels et domestiques.</p>
+      </div>
+      <div class="product-card">
+        <img src="images (4).jfif" alt="Mise a jour des téléphones">
+        <h3>Techno,Itel,Iphone, ect.....</h3>
+        <p>Service pour de bonne quailité pour vos téléphones</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- BANNIERE AVANT FOOTER -->
+  <section style="background:#f3f8ff;padding:18px;text-align:center">
+    <strong style="color:var(--primary);font-size:16px">Satisfait ou remboursé • Paiement à la livraison</strong>
+    <div style="color:var(--muted);margin-top:6px">Livraison rapide sur toute la ville</div>
+  </section>
+
+  <footer>
+    © 2025 Splendide Info Service - Tous droits réservés
+  </footer>
+
+  <script>
+    // HERO slider simple
+    (function(){
+      const slides = document.querySelectorAll('.slide');
+      let i=0; setInterval(()=>{
+        slides[i].classList.remove('active'); 
+        i=(i+1)%slides.length; 
+        slides[i].classList.add('active');
+      },3500);
+    })();
+  </script>
+
+</body>
+</html>
