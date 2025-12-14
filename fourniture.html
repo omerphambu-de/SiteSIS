@@ -2,282 +2,282 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Splendide Info Service - Fournitures Bureautiques</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Splendide Info Service – Fournitures</title>
+
 <style>
 :root{
   --primary:#003580;
   --accent:#f4f8ff;
   --muted:#6b7280;
   --cta:#ff6b00;
-  --hover:#002a66;
-}
-*{box-sizing:border-box;margin:0;padding:0;font-family:Inter, Arial, sans-serif}
-
-/* Dégradé bleu ciel sur tout le corps de page */
-body {
-  background: linear-gradient(to bottom, #cce7f7, #87ceeb);
-  color: #222;
+  --bg:linear-gradient(135deg,#a0e9ff,#00bfff,#0066cc);
 }
 
-/* Header */
-header{background:#fff;box-shadow:0 2px 5px rgba(0,0,0,0.05);padding:12px 24px;position:sticky;top:0;z-index:100}
-.header-main{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap}
-.brand{display:flex;align-items:center;gap:12px}
-.brand img{height:50px}
-.brand h1{color:var(--primary);font-size:22px}
-.brand span{font-size:12px;color:var(--muted)}
-nav ul{display:flex;gap:20px;list-style:none;flex-wrap:wrap}
-nav a{color:var(--primary);text-decoration:none;font-weight:600;transition:color 0.2s}
-nav a:hover{color:var(--cta)}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter, Arial, sans-serif}
 
-/* Grille des produits */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 24px;
+body{
+  background:var(--bg);
+  color:#222;
+  overflow-x:hidden;
 }
 
-/* Carte produit */
-.product {
-  background: #fff;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-  transition: transform 0.3s;
+/* ================= HEADER TYPE APPLICATION ================= */
+header{
+  position:sticky;
+  top:0;
+  z-index:100;
+  background:#fff;
+  box-shadow:0 4px 10px rgba(0,0,0,.08);
 }
 
-.product:hover {
-  transform: translateY(-6px);
+.header-app{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:12px 14px;
 }
 
-/* Image du produit */
-.product img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  display: block;
+.header-app img{height:42px}
+
+.header-title h1{
+  font-size:18px;
+  color:var(--primary);
+}
+.header-title span{
+  font-size:12px;
+  color:var(--muted);
 }
 
-/* Informations produit */
-.info {
-  padding: 16px;
+/* ================= MENU HORIZONTAL MOBILE ================= */
+.nav-scroll{
+  display:flex;
+  gap:12px;
+  padding:10px 14px;
+  overflow-x:auto;
+  background:linear-gradient(90deg,#e0f7ff,#c0eaff);
 }
 
-.info h3 {
-  font-size: 18px;
-  color: #111;
-  margin-bottom: 8px;
+.nav-scroll a{
+  white-space:nowrap;
+  padding:8px 14px;
+  border-radius:20px;
+  font-size:14px;
+  font-weight:600;
+  color:var(--primary);
+  background:#fff;
+  text-decoration:none;
 }
 
-.info p {
-  font-size: 14px;
-  color: #6b7280;
-  margin-bottom: 12px;
+/* ================= CONTENU ================= */
+.container{
+  padding:20px 14px 40px;
 }
 
-/* Ligne prix + bouton */
-.price-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.container h2{
+  text-align:center;
+  color:#fff;
+  margin-bottom:20px;
+  font-size:22px;
 }
 
-.price {
-  color: #003580;
-  font-weight: 700;
-  font-size: 16px;
+/* ================= GRILLE AUTO ================= */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:16px;
 }
 
-/* Bouton commander */
-.btn {
-  background: #ff6b00;
-  color: #fff;
-  padding: 10px 14px;
-  border: none;
-  border-radius: 8px;
-  font-weight: 700;
-  cursor: pointer;
-  text-decoration: none;
-  display: inline-block;
-  text-align: center;
-  transition: background 0.2s;
+/* ================= CARTE PRODUIT ================= */
+.product{
+  background:#fff;
+  border-radius:14px;
+  overflow:hidden;
+  box-shadow:0 6px 14px rgba(0,0,0,.12);
+  display:flex;
+  flex-direction:column;
 }
 
-.btn:hover {
-  background: #002a66;
+.product img{
+  width:100%;
+  height:150px;
+  object-fit:cover;
 }
 
-/* Footer */
-footer{background:var(--primary);color:#fff;text-align:center;padding:24px;margin-top:40px;font-size:14px}
+.info{
+  padding:14px;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
 
-@media(max-width:768px){
-  .header-main{flex-direction:column;gap:12px}
-  nav ul{flex-direction:column;gap:12px}
+.info h3{
+  font-size:16px;
+  color:#003580;
+}
+
+.info p{
+  font-size:13px;
+  color:#555;
+  flex:1;
+}
+
+/* ================= PRIX + BOUTON ================= */
+.price-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:8px;
+}
+
+.price{
+  font-weight:700;
+  color:#003580;
+  font-size:14px;
+}
+
+.btn{
+  background:var(--cta);
+  color:#fff;
+  padding:8px 12px;
+  border-radius:8px;
+  font-size:13px;
+  font-weight:700;
+  text-decoration:none;
+}
+
+/* ================= FOOTER ================= */
+footer{
+  background:#003580;
+  color:#fff;
+  text-align:center;
+  padding:18px;
+  font-size:13px;
+}
+
+/* ================= TABLET ================= */
+@media(min-width:768px){
+  .grid{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+  .product img{height:180px}
+}
+
+/* ================= DESKTOP ================= */
+@media(min-width:1100px){
+  .container{max-width:1200px;margin:auto}
+}
+
+/* ================= MODE SOMBRE AUTOMATIQUE ================= */
+@media (prefers-color-scheme: dark){
+
+  body{
+    background:linear-gradient(135deg,#0b1c2d,#0f2a44,#001a33);
+    color:#e5e7eb;
+  }
+
+  header,
+  .product,
+  footer{
+    background:#0f172a;
+    color:#e5e7eb;
+  }
+
+  .header-title h1,
+  .price,
+  .info h3{
+    color:#60a5fa;
+  }
+
+  .info p,
+  .header-title span{
+    color:#cbd5e1;
+  }
+
+  .nav-scroll{
+    background:linear-gradient(90deg,#0b1c2d,#102a43);
+  }
+
+  .nav-scroll a{
+    background:#1e293b;
+    color:#e5e7eb;
+  }
+
+  .btn{
+    background:#f97316;
+  }
 }
 </style>
 </head>
+
 <body>
 
-<!-- HEADER -->
 <header>
-  <div class="header-main">
-    <div class="brand">
-      <img src="loi.png" alt="Logo SIS">
-      <div>
-        <h1>Splendide Info Service</h1>
-        <span>Secrétariat • Bureautique • Impression</span>
-      </div>
+  <div class="header-app">
+    <img src="loi.png" alt="Logo SIS">
+    <div class="header-title">
+      <h1>Splendide Info Service</h1>
+      <span>Fournitures Bureautiques</span>
     </div>
-    <nav>
-      <ul>
-        <li><a href="index.html">Accueil</a></li>
-        <li><a href="fournitures.html">Fournitures</a></li>
-        <li><a href="papeterie.html">Papeterie</a></li>
-        <li><a href="impression.html">Impression</a></li>
-        <li><a href="bureautique.html">Bureautique</a></li>
-        <li><a href="scan-plastification.html">Scan & Plastification</a></li>
-        <li><a href="services.html">Services pros</a></li>
-        <li><a href="promotions.html">Promotions</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-    </nav>
   </div>
+
+  <nav class="nav-scroll">
+    <a href="index.html">Accueil</a>
+    <a href="fournitures.html">Fournitures</a>
+    <a href="papeterie.html">Papeterie</a>
+    <a href="impression.html">Impression</a>
+    <a href="bureautique.html">Bureautique</a>
+    <a href="services.html">Services</a>
+  </nav>
 </header>
 
-<!-- PRODUITS -->
 <section class="container">
-  <h2 style="text-align:center;">Nos Fournitures Bureautiques</h2>
+  <h2>Nos Fournitures</h2>
+
   <div class="grid">
 
     <div class="product">
-      <img src="393698_d2.webp" alt="Stylo BIC">
+      <img src="393698_d2.webp">
       <div class="info">
         <h3>Stylo BIC</h3>
-        <p>Stylos fiables et de qualité pour tous vos besoins en écriture.</p>
+        <p>Stylos fiables pour écriture quotidienne.</p>
         <div class="price-row">
-          <div class="price">150 FCFA</div>
-          <a class="btn" href="https://wa.me/243904649754?text=Bonjour%2C%20je%20veux%20commander%20Stylo%20BIC" target="_blank">Commander via WhatsApp</a>
+          <span class="price">150 FCFA</span>
+          <a class="btn" href="https://wa.me/243904649754?text=Commande%20Stylo%20BIC">Commander</a>
         </div>
       </div>
     </div>
 
     <div class="product">
-      <img src="02-choix-papier-a4-1.jpg" alt="Cahier A4">
+      <img src="02-choix-papier-a4-1.jpg">
       <div class="info">
         <h3>Cahier A4</h3>
-        <p>Cahiers lignés et grands formats pour notes, projets et bureaux.</p>
+        <p>Cahiers solides pour études et bureaux.</p>
         <div class="price-row">
-          <div class="price">450 FCFA</div>
-          <a class="btn" href="https://wa.me/243904649754?text=Bonjour%2C%20je%20veux%20commander%20Cahier%20A4" target="_blank">Commander via WhatsApp</a>
+          <span class="price">450 FCFA</span>
+          <a class="btn" href="https://wa.me/243904649754?text=Commande%20Cahier%20A4">Commander</a>
         </div>
       </div>
     </div>
 
     <div class="product">
-      <img src="encre-de-tatouage-a-dates-courtes.jpg" alt="Encre pour imprimante">
+      <img src="encre-de-tatouage-a-dates-courtes.jpg">
       <div class="info">
-        <h3>Encre pour imprimante</h3>
-        <p>Cartouches d’encre haute qualité pour impression nette et durable.</p>
+        <h3>Encre imprimante</h3>
+        <p>Cartouches haute qualité.</p>
         <div class="price-row">
-          <div class="price">7 500 FCFA</div>
-          <a class="btn" href="https://wa.me/243904649754?text=Bonjour%2C%20je%20veux%20commander%20Encre%20pour%20imprimante" target="_blank">Commander via WhatsApp</a>
+          <span class="price">7 500 FCFA</span>
+          <a class="btn" href="https://wa.me/243904649754?text=Commande%20Encre">Commander</a>
         </div>
       </div>
     </div>
 
     <div class="product">
-      <img src="mplusr-latte-en-plastique-en-couleurs-assorties-30-cm.jpg" alt="Latte de mesure">
+      <img src="images (8).jfif">
       <div class="info">
-        <h3>Latte de mesure</h3>
-        <p>Lattes précises pour dessin, mesures et travaux scolaires.</p>
+        <h3>Scotch</h3>
+        <p>Ruban adhésif de bureau.</p>
         <div class="price-row">
-          <div class="price">600 FCFA</div>
-          <a class="btn" href="https://wa.me/243904649754?text=Bonjour%2C%20je%20veux%20commander%20Latte%20de%20mesure" target="_blank">Commander via WhatsApp</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="product">
-      <img src="images (8).jfif" alt="Scotch">
-      <div class="info">
-        <h3>Scotch transparent</h3>
-        <p>Ruban adhésif de qualité pour bureau et emballage.</p>
-        <div class="price-row">
-          <div class="price">360 FCFA</div>
-          <a class="btn" href="https://wa.me/243904649754?text=Bonjour%2C%20je%20veux%20commander%20Scotch%20transparent" target="_blank">Commander via WhatsApp</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="product">
-      <img src="Type_baguetteRelier1.jpg" alt="Baquettes">
-      <div class="info">
-        <h3>Baquettes</h3>
-        <p>Baquettes et supports pour organisation et présentation de documents.</p>
-        <div class="price-row">
-          <div class="price">1 050 FCFA</div>
-          <a class="btn" href="https://wa.me/243904649754?text=Bonjour%2C%20je%20veux%20commander%20Baquettes" target="_blank">Commander via WhatsApp</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="product">
-      <img src="sous-chemise.jpg" alt="Sous chemises">
-      <div class="info">
-        <h3>Sous-chemises</h3>
-        <p>Sous-chemises pour classer et protéger vos documents importants.</p>
-        <div class="price-row">
-          <div class="price">750 FCFA</div>
-          <a class="btn" href="https://wa.me/243904649754?text=Bonjour%2C%20je%20veux%20commander%20Sous-chemises" target="_blank">Commander via WhatsApp</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="product">
-      <img src="GPV-4274-Enveloppe-kraft-format-A4-229x324-mm-90-1.jpg" alt="Chemises kaki">
-      <div class="info">
-        <h3>Chemises kaki</h3>
-        <p>Chemises résistantes pour ranger et transporter vos documents.</p>
-        <div class="price-row">
-          <div class="price">900 FCFA</div>
-          <a class="btn" href="https://wa.me/243904649754?text=Bonjour%2C%20je%20veux%20commander%20Chemises%20kaki" target="_blank">Commander via WhatsApp</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="product">
-      <img src="enveloppe.avif" alt="Enveloppes">
-      <div class="info">
-        <h3>Enveloppes</h3>
-        <p>Enveloppes standards et personnalisées pour correspondance et envoi de documents.</p>
-        <div class="price-row">
-          <div class="price">60 FCFA</div>
-          <a class="btn" href="https://wa.me/243904649754?text=Bonjour%2C%20je%20veux%20commander%20Enveloppes" target="_blank">Commander via WhatsApp</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="product">
-      <img src="images (9).jfif" alt="Chemises cartonnées">
-      <div class="info">
-        <h3>Chemises cartonnées</h3>
-        <p>Chemises rigides pour protéger vos documents et archives importantes.</p>
-        <div class="price-row">
-          <div class="price">1 200 FCFA</div>
-          <a class="btn" href="https://wa.me/243904649754?text=Bonjour%2C%20je%20veux%20commander%20Chemises%20cartonnées" target="_blank">Commander via WhatsApp</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="product">
-      <img src="images (10).jfif" alt="Quicuers">
-      <div class="info">
-        <h3>Quicuers</h3>
-        <p>Accessoires variés pour la finition et le classement de vos documents.</p>
-        <div class="price-row">
-          <div class="price">540 FCFA</div>
-          <a class="btn" href="https://wa.me/243904649754?text=Bonjour%2C%20je%20veux%20commander%20Quicuers" target="_blank">Commander via WhatsApp</a>
+          <span class="price">360 FCFA</span>
+          <a class="btn" href="https://wa.me/243904649754?text=Commande%20Scotch">Commander</a>
         </div>
       </div>
     </div>
@@ -285,9 +285,8 @@ footer{background:var(--primary);color:#fff;text-align:center;padding:24px;margi
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
-  © 2025 Splendide Info Service - Grand Marché Boma - Tél: 050 146 003 - Email: omerphambu@gmail.com
+  © 2025 Splendide Info Service – Grand Marché Boma
 </footer>
 
 </body>
