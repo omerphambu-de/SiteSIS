@@ -1,198 +1,186 @@
 <!DOCTYPE html>
-
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Splendide Info Service - À propos</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>À propos – Splendide Info Service</title>
+
 <style>
-body {
-    margin: 0;
-    font-family: 'Segoe UI', Tahoma, sans-serif;
-    background-color: #f0f4f8;
-    color: #333;
-    line-height: 1.7em;
+:root{
+  --primary:#003580;
+  --cta:#ff6b00;
+  --hover:#002a66;
+  --bg-light:#f0f4f8;
 }
+
+*{box-sizing:border-box;margin:0;padding:0;font-family:Segoe UI,Tahoma,sans-serif}
+body{background:var(--bg-light);color:#222;overflow-x:hidden}
 
 /* ===== HEADER ===== */
-header {
-background: linear-gradient(135deg, rgba(106,17,203,0.6), rgba(37,117,252,0.6)), url("photo.jpg");
-background-size: cover;
-background-position: center;
-color: white;
-text-align: center;
-padding: 100px 20px;
-position: relative;
-overflow: hidden;
+header{
+  background:linear-gradient(135deg, rgba(106,17,203,0.6), rgba(37,117,252,0.6)), url("photo.jpg");
+  background-size:cover;
+  background-position:center;
+  color:white;
+  text-align:center;
+  padding:80px 16px 40px 16px;
+  position:relative;
 }
-header::before {
-content: '';
-position: absolute;
-top:0; left:0; right:0; bottom:0;
-background: linear-gradient(45deg, rgba(255,255,255,0.05), rgba(0,0,0,0.15));
-pointer-events: none;
-}
-header h1 {
-font-size: 3.2em;
-margin: 0 0 15px 0;
-text-shadow: 2px 2px 12px rgba(0,0,0,0.4);
-animation: float 4s ease-in-out infinite;
-}
-header p {
-font-size: 1.4em;
-text-shadow: 1px 1px 6px rgba(0,0,0,0.3);
-}
-.header-buttons {
-margin-top: 20px;
-}
-.header-buttons a {
-background-color: white;
-color: #2575fc;
-padding: 14px 25px;
-border-radius: 30px;
-font-weight: bold;
-text-decoration: none;
-margin: 8px;
-display: inline-block;
-transition: 0.4s;
-}
-.header-buttons a:hover {
-background-color: #6a11cb;
-color: white;
-transform: translateY(-3px) scale(1.05);
-}
+header h1{font-size:2em;margin-bottom:8px;animation:float 4s ease-in-out infinite}
+header p{font-size:1.1em;margin-bottom:16px}
 
 /* ===== ANIMATION FLOAT ===== */
-@keyframes float {
-0%,100% { transform: translateY(0); }
-50% { transform: translateY(-10px); }
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+
+/* ===== NAVIGATION MOBILE ===== */
+.nav-scroll{
+  display:flex;
+  gap:10px;
+  padding:10px 14px;
+  overflow-x:auto;
+  background:#eaf5ff;
+}
+.nav-scroll a{
+  white-space:nowrap;
+  padding:8px 14px;
+  border-radius:20px;
+  background:#fff;
+  color:var(--primary);
+  font-weight:600;
+  font-size:14px;
+  text-decoration:none;
 }
 
 /* ===== SECTIONS ===== */
-section {
-padding: 60px 20px;
-max-width: 900px;
-margin: auto;
-background: white;
-border-radius: 15px;
-margin-bottom: 40px;
-box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-transition: transform 0.3s;
+section{
+  padding:20px 16px;
+  margin:16px;
+  background:#fff;
+  border-radius:14px;
+  box-shadow:0 6px 14px rgba(0,0,0,.12);
 }
-section:hover { transform: translateY(-5px); }
-h2 { margin-top: 30px; color: #2575fc; }
-ul { list-style-type: none; padding: 0; }
-ul li {
-margin: 12px 0;
-padding-left: 25px;
-position: relative;
-font-weight: 500;
+section h2{color:var(--primary);margin-bottom:12px}
+ul{list-style:none;padding:0;margin:0 0 12px 0}
+ul li{
+  position:relative;
+  padding-left:24px;
+  margin-bottom:8px;
 }
-ul li::before {
-content: "✔";
-position: absolute;
-left:0;
-color: #6a11cb;
-font-weight: bold;
+ul li::before{
+  content:"✔";
+  position:absolute;
+  left:0;
+  color:#6a11cb;
 }
 
 /* ===== NOTICE ===== */
-.notice {
-background-color: #d0e8ff;
-padding: 20px 25px;
-margin-top: 25px;
-border-left: 6px solid #2575fc;
-font-weight: bold;
-border-radius: 8px;
-box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+.notice{
+  background-color:#d0e8ff;
+  padding:12px 16px;
+  border-left:6px solid var(--primary);
+  border-radius:8px;
+  margin-top:12px;
+  font-weight:500;
+  box-shadow:0 4px 12px rgba(0,0,0,.08);
 }
 
 /* ===== BOUTON RETOUR ===== */
-.return-btn {
-display: inline-block;
-margin-top: 25px;
-padding: 14px 30px;
-font-weight: bold;
-color: white;
-background: linear-gradient(135deg, #2575fc, #6a11cb);
-border-radius: 30px;
-text-decoration: none;
-transition: all 0.3s;
+.return-btn{
+  display:inline-block;
+  margin-top:16px;
+  padding:12px 24px;
+  font-weight:bold;
+  color:#fff;
+  background:linear-gradient(135deg, #2575fc,#6a11cb);
+  border-radius:24px;
+  text-decoration:none;
+  transition:.3s;
 }
-.return-btn:hover {
-transform: scale(1.05) translateY(-3px);
-box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+.return-btn:hover{
+  transform:scale(1.05) translateY(-2px);
+  box-shadow:0 6px 18px rgba(0,0,0,.2);
 }
 
 /* ===== FOOTER ===== */
-footer {
-background-color: #6a11cb;
-color: white;
-text-align: center;
-padding: 35px 0;
-font-size: 0.95em;
+footer{
+  background:#6a11cb;
+  color:#fff;
+  text-align:center;
+  padding:24px 0;
+  font-size:13px;
+}
+
+/* ===== MODE SOMBRE ===== */
+@media (prefers-color-scheme:dark){
+  body{background:#0b1c2d;color:#e5e7eb}
+  section, .notice{background:#1e293b;color:#e5e7eb}
+  .return-btn{background:linear-gradient(135deg,#2575fc,#6a11cb)}
 }
 
 /* ===== RESPONSIVE ===== */
-@media(max-width:768px){
-header h1 { font-size: 2.2em; }
-header p { font-size: 1.1em; }
-section { padding: 40px 15px; }
-}
 @media(max-width:480px){
-header h1 { font-size: 1.8em; }
-header p { font-size: 1em; }
-} </style>
-
+header h1{font-size:1.6em}
+header p{font-size:0.95em}
+section{padding:16px;margin:12px}
+}
+</style>
 </head>
+
 <body>
 
 <header>
-    <h1>À propos de SIS</h1>
-    <p>Votre partenaire numérique de confiance</p>
-    <div class="header-buttons">
-    </div>
+  <h1>À propos de SIS</h1>
+  <p>Votre partenaire numérique de confiance</p>
 </header>
 
+<nav class="nav-scroll">
+  <a href="index.html">Accueil</a>
+  <a href="fourniture.html">Fournitures</a>
+  <a href="papeterie.html">Papeterie</a>
+  <a href="impression.html">Impression</a>
+  <a href="bureautique.html">Bureautique</a>
+  <a href="scan-plastification.html">Scan & Plastification</a>
+  <a href="services.html">Services</a>
+</nav>
+
 <section>
-    <h2>Qui sommes-nous ?</h2>
-    <p>
-        Splendide Info Service (SIS) est une entreprise spécialisée dans les services informatiques, la bureautique,
-        la conception graphique et l’assistance technique. Notre objectif est de fournir des solutions rapides, accessibles
-        et professionnelles aux particuliers comme aux entreprises.
-    </p>
+  <h2>Qui sommes-nous ?</h2>
+  <p>
+    Splendide Info Service (SIS) est une entreprise spécialisée dans les services informatiques, la bureautique,
+    la conception graphique et l’assistance technique. Notre objectif est de fournir des solutions rapides, accessibles
+    et professionnelles aux particuliers comme aux entreprises.
+  </p>
 
-    <h2>Notre Mission</h2>
-    <p>
-        Offrir des services informatiques fiables, modernes et adaptés aux besoins réels de nos clients, tout en garantissant
-        une qualité irréprochable et un accompagnement personnalisé.
-    </p>
+  <h2>Notre Mission</h2>
+  <p>
+    Offrir des services informatiques fiables, modernes et adaptés aux besoins réels de nos clients, tout en garantissant
+    une qualité irréprochable et un accompagnement personnalisé.
+  </p>
 
-    <h2>Nos Valeurs</h2>
-    <ul>
-        <li>Professionnalisme et rigueur dans chaque prestation.</li>
-        <li>Innovation continue pour proposer les meilleures solutions.</li>
-        <li>Respect, transparence et confiance avec nos clients.</li>
-        <li>Engagement dans la satisfaction totale du client.</li>
-    </ul>
+  <h2>Nos Valeurs</h2>
+  <ul>
+    <li>Professionnalisme et rigueur dans chaque prestation.</li>
+    <li>Innovation continue pour proposer les meilleures solutions.</li>
+    <li>Respect, transparence et confiance avec nos clients.</li>
+    <li>Engagement dans la satisfaction totale du client.</li>
+  </ul>
 
-    <h2>Pourquoi choisir SIS ?</h2>
-    <p>
-        Parce que nous combinons expertise, rapidité, fiabilité et prix accessibles. Nous nous engageons à transformer
-        chaque besoin en une solution efficace et durable.
-    </p>
+  <h2>Pourquoi choisir SIS ?</h2>
+  <p>
+    Parce que nous combinons expertise, rapidité, fiabilité et prix accessibles. Nous nous engageons à transformer
+    chaque besoin en une solution efficace et durable.
+  </p>
 
-    <div class="notice">
-        <p><strong>Horaires d’ouverture :</strong> Lundi à Samedi de 08h00 à 18h00. Dimanche fermé.</p>
-        <p>Pour les urgences, nous répondons immédiatement si vous nous contactez.</p>
-    </div>
+  <div class="notice">
+    <p><strong>Horaires d’ouverture :</strong> Lundi à Samedi de 08h00 à 18h00. Dimanche fermé.</p>
+    <p>Pour les urgences, nous répondons immédiatement si vous nous contactez.</p>
+  </div>
 
-    <a href="index.html" class="return-btn">Retour à l'Accueil</a>
+  <a href="index.html" class="return-btn">Retour à l'Accueil</a>
 </section>
 
-
 <footer>
-    &copy; 2025 Splendide Info Service (SIS) - Tous droits réservés
+  &copy; 2025 Splendide Info Service (SIS) - Tous droits réservés
 </footer>
 
 </body>

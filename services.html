@@ -2,85 +2,192 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Services pros – Splendide Info Service</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Services professionnels – Splendide Info Service</title>
+
 <style>
 :root{
   --primary:#003580;
-  --accent:#f4f8ff;
-  --muted:#6b7280;
   --cta:#ff6b00;
   --hover:#002a66;
-  --bg-gradient: linear-gradient(to bottom, #cce7f7, #87ceeb);
-  --card-gradient: linear-gradient(to bottom right, #ffffff, #e0f0ff);
+  --bg-light:linear-gradient(to bottom,#cce7f7,#87ceeb);
 }
 
-*{box-sizing:border-box;margin:0;padding:0;font-family:'Inter',Arial,sans-serif;}
-body{background:var(--bg-gradient);color:#222;}
+*{box-sizing:border-box;margin:0;padding:0;font-family:Inter,Arial,sans-serif}
+body{background:var(--bg-light);color:#222;overflow-x:hidden}
 
-/* Header */
-header{background:#fff;box-shadow:0 4px 12px rgba(0,0,0,0.1);padding:16px 24px;position:sticky;top:0;z-index:100;}
-h1{text-align:center;color:var(--primary);font-size:32px;margin-bottom:16px;}
-h1 a{text-decoration:none;color:var(--primary);transition:color 0.3s;}
-h1 a:hover{color:var(--cta);}
+/* ===== HEADER APP ===== */
+header{
+  position:sticky;
+  top:0;
+  z-index:100;
+  background:#fff;
+  box-shadow:0 4px 12px rgba(0,0,0,.1);
+}
+.header-app{
+  padding:14px 16px 10px;
+}
+.header-app h1{
+  font-size:18px;
+  color:var(--primary);
+}
+.header-app span{
+  font-size:12px;
+  color:#555;
+}
 
-.nav-cats{text-align:center;margin-bottom:24px;}
-.nav-cats a{display:inline-block;margin:6px 8px;padding:10px 16px;border-radius:8px;color:var(--primary);font-weight:600;border:1px solid transparent;text-decoration:none;transition:all 0.2s;}
-.nav-cats a:hover{background:var(--primary);color:#fff;border-color:var(--primary);}
+/* ===== NAVIGATION MOBILE ===== */
+.nav-scroll{
+  display:flex;
+  gap:10px;
+  padding:10px 14px;
+  overflow-x:auto;
+  background:#eaf5ff;
+}
+.nav-scroll a{
+  white-space:nowrap;
+  padding:8px 14px;
+  border-radius:20px;
+  background:#fff;
+  color:var(--primary);
+  font-weight:600;
+  font-size:14px;
+  text-decoration:none;
+}
 
-/* Grille produits */
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;padding:24px;max-width:1200px;margin:0 auto;}
-.product{background:var(--card-gradient);border-radius:12px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,0.08);text-align:center;transition:transform 0.3s,box-shadow 0.3s;opacity:0;transform:translateY(20px);}
-.product.visible{opacity:1;transform:translateY(0);transition:transform 0.6s ease,opacity 0.6s ease;}
-.product:hover{transform:translateY(-8px);box-shadow:0 12px 24px rgba(0,0,0,0.2);}
-.product img{width:100%;height:180px;object-fit:cover;transition:transform 0.3s;}
-.product img:hover{transform:scale(1.05);}
-.product h3{color:#111;font-size:18px;margin:12px 0 6px 0;}
-.product .price{color:var(--primary);font-weight:700;font-size:16px;margin-bottom:12px;}
-.btn{background:var(--cta);color:#fff;border:none;padding:10px 16px;border-radius:8px;font-weight:700;cursor:pointer;transition:background 0.2s;display:inline-block;text-decoration:none;}
-.btn:hover{background:var(--hover);}
+/* ===== SERVICES ===== */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
+  gap:16px;
+  padding:16px;
+}
+.product{
+  background:#fff;
+  border-radius:14px;
+  overflow:hidden;
+  box-shadow:0 6px 14px rgba(0,0,0,.12);
+  text-align:center;
+  opacity:0;
+  transform:translateY(20px);
+}
+.product.visible{
+  opacity:1;
+  transform:translateY(0);
+  transition:.6s;
+}
+.product img{
+  width:100%;
+  height:150px;
+  object-fit:cover;
+}
+.product h3{
+  font-size:15px;
+  margin:10px 0 4px;
+}
+.price{
+  color:var(--primary);
+  font-weight:700;
+  margin-bottom:10px;
+}
+.btn{
+  display:inline-block;
+  margin-bottom:12px;
+  background:var(--cta);
+  color:#fff;
+  padding:8px 14px;
+  border-radius:8px;
+  font-size:13px;
+  font-weight:700;
+  text-decoration:none;
+}
 
-/* Footer */
-footer{background:var(--primary);color:#fff;text-align:center;padding:20px;margin-top:32px;font-size:14px;}
+/* ===== FOOTER ===== */
+footer{
+  background:var(--primary);
+  color:#fff;
+  text-align:center;
+  padding:16px;
+  font-size:13px;
+}
 
-/* Responsive */
-@media (max-width:768px){h1{font-size:26px;}.nav-cats a{padding:8px 12px;margin:4px;}}
+/* ===== MODE SOMBRE AUTO ===== */
+@media (prefers-color-scheme:dark){
+  body{background:#0b1c2d;color:#e5e7eb}
+  header,.product,footer{background:#0f172a;color:#e5e7eb}
+  .nav-scroll{background:#102a43}
+  .nav-scroll a{background:#1e293b;color:#e5e7eb}
+  .price{color:#60a5fa}
+}
 </style>
 </head>
+
 <body>
 
 <header>
-  <h1><a href="index.html">Services pros – Splendide Info Service</a></h1>
-  <nav class="nav-cats">
-      <a href="index.html">Accueil</a>
+  <div class="header-app">
+    <h1>Services professionnels</h1>
+    <span>Splendide Info Service</span>
+  </div>
+
+  <nav class="nav-scroll">
+    <a href="index.html">Accueil</a>
     <a href="fourniture.html">Fournitures</a>
     <a href="papeterie.html">Papeterie</a>
     <a href="impression.html">Impression</a>
     <a href="bureautique.html">Bureautique</a>
     <a href="scan-plastification.html">Scan & Plastification</a>
-    <a href="services.html">Services pros</a>
-    <a href="promotions.html">Promotions</a>
+    <a href="services.html">Services</a>
   </nav>
 </header>
 
 <section class="grid">
-  <div class="product"><img src="formation.webp" alt="Formation"><h3>Formation Informatique</h3><div class="price">À partir de 50€</div><button class="btn">Ajouter</button></div>
-  <div class="product"><img src="carte.jpeg" alt="Cartes Pointage"><h3>Cartes de pointage</h3><div class="price">10,00€</div><button class="btn">Ajouter</button></div>
-  <div class="product"><img src="photoo.jpg" alt="Photo Minute"><h3>Photo Minute</h3><div class="price">5,00€</div><button class="btn">Ajouter</button></div>
-  <div class="product"><img src="reluire.webp" alt="Reliure"><h3>Reliure Professionnelle</h3><div class="price">4,50€</div><button class="btn">Ajouter</button></div>
-  <div class="product"><img src="maintenant.webp" alt="Maintenance"><h3>Maintenance Informatique</h3><div class="price">30,00€</div><button class="btn">Ajouter</button></div>
+  <div class="product">
+    <img src="formation.webp">
+    <h3>Formation informatique</h3>
+    <div class="price">À partir de 50 €</div>
+    <a class="btn" href="https://wa.me/243904649754?text=Bonjour, je veux une formation informatique">Commander</a>
+  </div>
+
+  <div class="product">
+    <img src="carte.jpeg">
+    <h3>Cartes de pointage</h3>
+    <div class="price">10 €</div>
+    <a class="btn" href="https://wa.me/243904649754?text=Bonjour, je veux des cartes de pointage">Commander</a>
+  </div>
+
+  <div class="product">
+    <img src="photoo.jpg">
+    <h3>Photo minute</h3>
+    <div class="price">5 €</div>
+    <a class="btn" href="https://wa.me/243904649754?text=Bonjour, je veux une photo minute">Commander</a>
+  </div>
+
+  <div class="product">
+    <img src="reluire.webp">
+    <h3>Reliure professionnelle</h3>
+    <div class="price">4,50 €</div>
+    <a class="btn" href="https://wa.me/243904649754?text=Bonjour, je veux une reliure professionnelle">Commander</a>
+  </div>
+
+  <div class="product">
+    <img src="maintenant.webp">
+    <h3>Maintenance informatique</h3>
+    <div class="price">30 €</div>
+    <a class="btn" href="https://wa.me/243904649754?text=Bonjour, je veux une maintenance informatique">Commander</a>
+  </div>
 </section>
 
-<footer>© 2025 Splendide Info Service - Tous droits réservés</footer>
+<footer>© 2025 Splendide Info Service</footer>
 
 <script>
-// Animation au scroll pour les produits
-const products = document.querySelectorAll('.product');
+const products=document.querySelectorAll('.product');
 function reveal(){
-  const triggerBottom = window.innerHeight*0.85;
-  products.forEach(product=>{
-    const productTop = product.getBoundingClientRect().top;
-    if(productTop < triggerBottom){product.classList.add('visible');}
+  const t=window.innerHeight*0.85;
+  products.forEach(p=>{
+    if(p.getBoundingClientRect().top<t){
+      p.classList.add('visible');
+    }
   });
 }
 window.addEventListener('scroll',reveal);

@@ -2,158 +2,239 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Promotions – Splendide Info Service</title>
+
 <style>
 :root{
   --primary:#003580;
-  --accent:#f4f8ff;
   --cta:#ff6b00;
   --hover:#002a66;
-  --bg-gradient: linear-gradient(to bottom, #cce7f7, #87ceeb);
-  --card-gradient: linear-gradient(to bottom right, #ffffff, #e0f0ff);
+  --bg-light:linear-gradient(to bottom,#cce7f7,#87ceeb);
+  --badge:#ff3c3c;
 }
 
-*{box-sizing:border-box;margin:0;padding:0;font-family:'Inter',Arial,sans-serif;}
-body{background:var(--bg-gradient);color:#222;}
+/* RESET & BODY */
+*{box-sizing:border-box;margin:0;padding:0;font-family:Inter,Arial,sans-serif}
+body{background:var(--bg-light);color:#222;overflow-x:hidden}
 
-/* Header */
-header{background:#fff;box-shadow:0 4px 12px rgba(0,0,0,0.1);padding:16px 24px;position:sticky;top:0;z-index:100;}
-h1{text-align:center;color:var(--primary);font-size:32px;margin-bottom:16px;}
-h1 a{text-decoration:none;color:var(--primary);transition:color 0.3s;}
-h1 a:hover{color:var(--cta);}
-.nav-cats{text-align:center;margin-bottom:24px;}
-.nav-cats a{display:inline-block;margin:6px 8px;padding:10px 16px;border-radius:8px;color:var(--primary);font-weight:600;border:1px solid transparent;text-decoration:none;transition:all 0.2s;}
-.nav-cats a:hover{background:var(--primary);color:#fff;border-color:var(--primary);}
+/* HEADER */
+header{
+  position:sticky;
+  top:0;
+  z-index:100;
+  background:#fff;
+  box-shadow:0 4px 12px rgba(0,0,0,.1);
+}
+.header-app{
+  padding:14px 16px 10px;
+}
+.header-app h1{
+  font-size:18px;
+  color:var(--primary);
+}
+.header-app span{
+  font-size:12px;
+  color:#555;
+}
 
-/* Slider */
-.slider{position:relative;width:100%;max-width:1200px;margin:0 auto 40px;overflow:hidden;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,0.15);}
-.slides{display:flex;transition:transform 0.5s ease;}
-.slide{min-width:100%;position:relative;}
-.slide img{width:100%;height:300px;object-fit:cover;}
-.slide .caption{position:absolute;bottom:20px;left:20px;background:rgba(0,0,0,0.5);color:#fff;padding:10px 16px;border-radius:8px;font-size:18px;}
+/* NAVIGATION MOBILE */
+.nav-scroll{
+  display:flex;
+  gap:10px;
+  padding:10px 14px;
+  overflow-x:auto;
+  background:#eaf5ff;
+}
+.nav-scroll a{
+  white-space:nowrap;
+  padding:8px 14px;
+  border-radius:20px;
+  background:#fff;
+  color:var(--primary);
+  font-weight:600;
+  font-size:14px;
+  text-decoration:none;
+  transition:0.3s;
+}
+.nav-scroll a:hover{
+  background:var(--primary);
+  color:#fff;
+  transform:scale(1.05);
+}
 
-/* Flèches */
-.arrow{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,0.5);color:#fff;padding:10px;border-radius:50%;cursor:pointer;z-index:10;user-select:none;}
-.arrow:hover{background:var(--cta);}
-.arrow-left{left:10px;}
-.arrow-right{right:10px;}
+/* PRODUITS PROMO */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
+  gap:16px;
+  padding:16px;
+}
+.product{
+  background:#fff;
+  border-radius:14px;
+  overflow:hidden;
+  box-shadow:0 6px 14px rgba(0,0,0,.12);
+  text-align:center;
+  opacity:0;
+  transform:translateY(40px) scale(0.95);
+  transition:transform 0.6s, opacity 0.6s;
+  position:relative;
+}
+.product.visible{
+  opacity:1;
+  transform:translateY(0) scale(1);
+}
+.product img{
+  width:100%;
+  height:150px;
+  object-fit:cover;
+  transition:transform 0.4s;
+}
+.product:hover img{
+  transform:scale(1.07) rotate(1deg);
+}
+.product h3{
+  font-size:15px;
+  margin:10px 0 4px;
+}
+.price{
+  color:var(--primary);
+  font-weight:700;
+  margin-bottom:10px;
+}
+.btn{
+  display:inline-block;
+  margin-bottom:12px;
+  background:var(--cta);
+  color:#fff;
+  padding:8px 14px;
+  border-radius:8px;
+  font-size:13px;
+  font-weight:700;
+  text-decoration:none;
+  transition:transform 0.3s, background 0.3s;
+}
+.btn:hover{
+  background:var(--hover);
+  transform:scale(1.05);
+}
 
-/* Points */
-.dots{position:absolute;bottom:10px;width:100%;text-align:center;}
-.dot{display:inline-block;width:12px;height:12px;margin:0 4px;background:#fff;border-radius:50%;opacity:0.5;cursor:pointer;transition:opacity 0.3s;}
-.dot.active{opacity:1;}
+/* BADGE PROMO */
+.badge{
+  position:absolute;
+  top:12px;
+  left:12px;
+  background:var(--badge);
+  color:#fff;
+  font-size:12px;
+  font-weight:700;
+  padding:4px 8px;
+  border-radius:8px;
+  animation: pulse 1.5s infinite;
+}
+@keyframes pulse{
+  0%{transform:scale(1);}
+  50%{transform:scale(1.1);}
+  100%{transform:scale(1);}
+}
 
-/* Grille produits */
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;padding:0 24px 24px;}
-.product{background:var(--card-gradient);border-radius:12px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,0.08);text-align:center;transition:transform 0.3s,box-shadow 0.3s;position:relative;opacity:0;transform:translateY(20px);}
-.product.visible{opacity:1;transform:translateY(0);transition:transform 0.6s ease,opacity 0.6s ease;}
-.product:hover{transform:translateY(-8px) scale(1.02);box-shadow:0 12px 24px rgba(0,0,0,0.2);}
-.product img{width:100%;height:180px;object-fit:cover;transition:transform 0.3s;}
-.product img:hover{transform:scale(1.05);}
-.product h3{color:#111;font-size:18px;margin:12px 0 6px 0;}
-.product .price{color:var(--primary);font-weight:700;font-size:16px;margin-bottom:12px;}
-.product .badge{position:absolute;top:12px;left:12px;background:var(--cta);color:#fff;padding:4px 8px;font-size:12px;border-radius:6px;font-weight:700;}
-.btn{background:var(--cta);color:#fff;border:none;padding:10px 16px;border-radius:8px;font-weight:700;cursor:pointer;transition:background 0.2s, transform 0.2s;display:inline-block;text-decoration:none;}
-.btn:hover{background:var(--hover);transform:scale(1.05);}
+/* FOOTER */
+footer{
+  background:var(--primary);
+  color:#fff;
+  text-align:center;
+  padding:16px;
+  font-size:13px;
+}
 
-/* Footer */
-footer{background:var(--primary);color:#fff;text-align:center;padding:20px;margin-top:32px;font-size:14px;}
-
-/* Responsive */
-@media (max-width:768px){h1{font-size:26px;}.nav-cats a{padding:8px 12px;margin:4px;}}
+/* DARK MODE */
+@media (prefers-color-scheme:dark){
+  body{background:#0b1c2d;color:#e5e7eb}
+  header,.product,footer{background:#0f172a;color:#e5e7eb}
+  .nav-scroll{background:#102a43}
+  .nav-scroll a{background:#1e293b;color:#e5e7eb}
+  .price{color:#60a5fa}
+}
 </style>
 </head>
+
 <body>
 
 <header>
-  <h1><a href="index.html">Promotions – Splendide Info Service</a></h1>
-  <nav class="nav-cats">
-      <a href="index.html">Accueil</a>
+  <div class="header-app">
+    <h1>Promotions</h1>
+    <span>Splendide Info Service</span>
+  </div>
+
+  <nav class="nav-scroll">
+    <a href="index.html">Accueil</a>
     <a href="fourniture.html">Fournitures</a>
     <a href="papeterie.html">Papeterie</a>
     <a href="impression.html">Impression</a>
     <a href="bureautique.html">Bureautique</a>
     <a href="scan-plastification.html">Scan & Plastification</a>
-    <a href="services.html">Services pros</a>
+    <a href="services.html">Services</a>
     <a href="promotions.html">Promotions</a>
   </nav>
 </header>
 
-<!-- Slider -->
-<div class="slider">
-  <div class="slides">
-    <div class="slide"><img src="POUDRE QUASIL.jpg" alt="Promo 1"><div class="caption">Offre Étudiante: Pack 50 pages - 20€</div></div>
-    <div class="slide"><img src="calendrier.jpg" alt="Promo 2"><div class="caption">Flyer Promo à partir de 5€</div></div>
-    <div class="slide"><img src="visite.jpg" alt="Promo 3"><div class="caption">Impression A4 -10%</div></div>
-  </div>
-  <div class="arrow arrow-left">&#10094;</div>
-  <div class="arrow arrow-right">&#10095;</div>
-  <div class="dots">
-    <span class="dot active"></span>
-    <span class="dot"></span>
-    <span class="dot"></span>
-  </div>
-</div>
-
-<!-- Produits -->
 <section class="grid">
-  <div class="product"><div class="badge">Offre Spéciale</div><img src="POUDRE QUASIL.jpg" alt="Pack étudiant"><h3>Pack Étudiant 50 pages</h3><div class="price">20,00€</div><button class="btn">Commander</button></div>
-  <div class="product"><div class="badge">Offre Spéciale</div><img src="calendrier.jpg" alt="Flyer Promo"><h3>Flyer Promo</h3><div class="price">5,00€</div><button class="btn">Commander</button></div>
-  <div class="product"><div class="badge">-10%</div><img src="candier 1.webp" alt="Réduction Impression"><h3>Impression A4</h3><div class="price">0,54€</div><button class="btn">Commander</button></div>
-  <div class="product"><div class="badge">Offre Spéciale</div><img src="393698_d2.webp" alt="Cartons"><h3>Cartons de rangement</h3><div class="price">12,00€</div><button class="btn">Commander</button></div>
-  <div class="product"><div class="badge">Offre Spéciale</div><img src="visite.jpg" alt="Plaques"><h3>Plaques signalétiques</h3><div class="price">15,00€</div><button class="btn">Commander</button></div>
+  <div class="product">
+    <div class="badge">Promo</div>
+    <img src="POUDRE QUASIL.jpg">
+    <h3>Pack Étudiant 50 pages</h3>
+    <div class="price">20 €</div>
+    <a class="btn" href="https://wa.me/243904649754?text=Bonjour, je veux le Pack Étudiant 50 pages">Commander</a>
+  </div>
 
+  <div class="product">
+    <div class="badge">Promo</div>
+    <img src="calendrier.jpg">
+    <h3>Flyer Promo</h3>
+    <div class="price">5 €</div>
+    <a class="btn" href="https://wa.me/243904649754?text=Bonjour, je veux le Flyer Promo">Commander</a>
+  </div>
 
+  <div class="product">
+    <div class="badge">-10%</div>
+    <img src="candier 1.webp">
+    <h3>Impression A4</h3>
+    <div class="price">0,54 €</div>
+    <a class="btn" href="https://wa.me/243904649754?text=Bonjour, je veux une Impression A4">Commander</a>
+  </div>
 
-    <div class="product"><div class="badge">Offre Spéciale</div><img src="POUDRE QUASIL.jpg" alt="Pack étudiant"><h3>Pack Étudiant 50 pages</h3><div class="price">20,00€</div><button class="btn">Commander</button></div>
-  <div class="product"><div class="badge">Offre Spéciale</div><img src="calendrier.jpg" alt="Flyer Promo"><h3>Flyer Promo</h3><div class="price">5,00€</div><button class="btn">Commander</button></div>
-  <div class="product"><div class="badge">-10%</div><img src="candier 1.webp" alt="Réduction Impression"><h3>Impression A4</h3><div class="price">0,54€</div><button class="btn">Commander</button></div>
-  <div class="product"><div class="badge">Offre Spéciale</div><img src="393698_d2.webp" alt="Cartons"><h3>Cartons de rangement</h3><div class="price">12,00€</div><button class="btn">Commander</button></div>
-  <div class="product"><div class="badge">Offre Spéciale</div><img src="visite.jpg" alt="Plaques"><h3>Plaques signalétiques</h3><div class="price">15,00€</div><button class="btn">Commander</button></div>  <div class="product"><div class="badge">Offre Spéciale</div><img src="POUDRE QUASIL.jpg" alt="Pack étudiant"><h3>Pack Étudiant 50 pages</h3><div class="price">20,00€</div><button class="btn">Commander</button></div>
-  <div class="product"><div class="badge">Offre Spéciale</div><img src="calendrier.jpg" alt="Flyer Promo"><h3>Flyer Promo</h3><div class="price">5,00€</div><button class="btn">Commander</button></div>
-  <div class="product"><div class="badge">-10%</div><img src="candier 1.webp" alt="Réduction Impression"><h3>Impression A4</h3><div class="price">0,54€</div><button class="btn">Commander</button></div>
-  <div class="product"><div class="badge">Offre Spéciale</div><img src="393698_d2.webp" alt="Cartons"><h3>Cartons de rangement</h3><div class="price">12,00€</div><button class="btn">Commander</button></div>
-  <div class="product"><div class="badge">Offre Spéciale</div><img src="visite.jpg" alt="Plaques"><h3>Plaques signalétiques</h3><div class="price">15,00€</div><button class="btn">Commander</button></div>  <div class="product"><div class="badge">Offre Spéciale</div><img src="POUDRE QUASIL.jpg" alt="Pack étudiant"><h3>Pack Étudiant 50 pages</h3><div class="price">20,00€</div><button class="btn">Commander</button></div>
-  <div class="product"><div class="badge">Offre Spéciale</div><img src="calendrier.jpg" alt="Flyer Promo"><h3>Flyer Promo</h3><div class="price">5,00€</div><button class="btn">Commander</button></div>
-  <div class="product"><div class="badge">-10%</div><img src="candier 1.webp" alt="Réduction Impression"><h3>Impression A4</h3><div class="price">0,54€</div><button class="btn">Commander</button></div>
-  <div class="product"><div class="badge">Offre Spéciale</div><img src="393698_d2.webp" alt="Cartons"><h3>Cartons de rangement</h3><div class="price">12,00€</div><button class="btn">Commander</button></div>
-  <div class="product"><div class="badge">Offre Spéciale</div><img src="visite.jpg" alt="Plaques"><h3>Plaques signalétiques</h3><div class="price">15,00€</div><button class="btn">Commander</button></div>
+  <div class="product">
+    <div class="badge">Promo</div>
+    <img src="393698_d2.webp">
+    <h3>Cartons de rangement</h3>
+    <div class="price">12 €</div>
+    <a class="btn" href="https://wa.me/243904649754?text=Bonjour, je veux des Cartons de rangement">Commander</a>
+  </div>
+
+  <div class="product">
+    <div class="badge">Promo</div>
+    <img src="visite.jpg">
+    <h3>Plaques signalétiques</h3>
+    <div class="price">15 €</div>
+    <a class="btn" href="https://wa.me/243904649754?text=Bonjour, je veux des Plaques signalétiques">Commander</a>
+  </div>
 </section>
 
-<footer>© 2025 Splendide Info Service - Tous droits réservés</footer>
+<footer>© 2025 Splendide Info Service</footer>
 
 <script>
-// Animation au scroll pour les produits
-const products = document.querySelectorAll('.product');
+const products=document.querySelectorAll('.product');
 function reveal(){
-  const triggerBottom = window.innerHeight*0.85;
-  products.forEach(product=>{
-    const productTop = product.getBoundingClientRect().top;
-    if(productTop < triggerBottom){product.classList.add('visible');}
+  const t=window.innerHeight*0.85;
+  products.forEach(p=>{
+    if(p.getBoundingClientRect().top<t){
+      p.classList.add('visible');
+    }
   });
 }
 window.addEventListener('scroll',reveal);
 window.addEventListener('load',reveal);
-
-// Slider
-let index = 0;
-const slides = document.querySelector('.slides');
-const totalSlides = document.querySelectorAll('.slide').length;
-const dots = document.querySelectorAll('.dot');
-
-function showSlide(i){
-  index = (i + totalSlides) % totalSlides;
-  slides.style.transform = `translateX(-${index*100}%)`;
-  dots.forEach(dot=>dot.classList.remove('active'));
-  dots[index].classList.add('active');
-}
-
-document.querySelector('.arrow-left').addEventListener('click',()=>{showSlide(index-1);});
-document.querySelector('.arrow-right').addEventListener('click',()=>{showSlide(index+1);});
-dots.forEach((dot,i)=>dot.addEventListener('click',()=>{showSlide(i);}));
-
-setInterval(()=>{showSlide(index+1);},4000);
 </script>
 
 </body>
