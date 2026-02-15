@@ -307,7 +307,7 @@
     <div style="flex:1; min-width:220px; text-align:center;">
       <h3 style="margin-bottom:10px; font-size:20px; color:#00d4ff;">Concepteur du site</h3>
       <div style="margin-bottom:10px;">
-        <img src="photo-concepteur.jpg" alt="Photo du concepteur" 
+        <img src="omer.jpg" alt="Photo du concepteur" 
              style="width:80px; height:80px; border-radius:50%; border:2px solid #00d4ff; object-fit:cover;">
       </div>
       <p style="font-size:13px; line-height:1.4; color:#e0e6f0;">
@@ -377,6 +377,23 @@
     .social-icon img { transition: transform 0.3s, filter 0.3s; }
     .social-icon:hover img { transform: scale(1.2); filter: drop-shadow(0 0 5px #00d4ff); }
   </style>
+   <script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  /* ===== HERO SLIDER AUTO ===== */
+  const slides = document.querySelectorAll("#heroSlider .slide");
+  let index = 0;
+
+  function nextSlide() {
+    slides[index].classList.remove("active");
+    index = (index + 1) % slides.length;
+    slides[index].classList.add("active");
+  }
+
+  setInterval(nextSlide, 3000); // change toutes les 3 secondes
+
+});
+</script>
 
   <!-- QRCode.js -->
   <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
