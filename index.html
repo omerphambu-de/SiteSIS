@@ -104,12 +104,76 @@
           <button type="submit">Rechercher</button>
         </form>
         <div id="suggestions" style="position:absolute; background:white; border:1px solid #d7e7fb; border-top:none; width:100%; max-height:180px; overflow-y:auto; display:none; z-index:30; border-radius:0 0 8px 8px;"></div>
+
+<script>
+  // Liste complète avec URLs de redirection
+  const items = [
+    // Produits
+    { name: "Calendrier personnalisé A3", url: "produits.html#calendrier" },
+    { name: "Plastification A4", url: "produits.html#plastification" },
+    { name: "Scan + PDF", url: "produits.html#scanpdf" },
+    { name: "Poudre Quasil", url: "produits.html#poudrequasil" },
+    { name: "Techno", url: "produits.html#techno" },
+    { name: "Itel", url: "produits.html#itel" },
+    { name: "iPhone", url: "produits.html#iphone" },
+
+    // Services
+    { name: "Formation Informatique", url: "services.html#formation" },
+    { name: "Cartes de Pointage", url: "services.html#cartes" },
+    { name: "Photo Minute", url: "services.html#photo" },
+    { name: "Scannage", url: "services.html#scannage" },
+    { name: "Partage de Wi-Fi", url: "services.html#wifi" },
+    { name: "Téléchargements & Comptes", url: "services.html#telechargements" },
+    { name: "Conceptions sur Photoshop", url: "services.html#photoshop" },
+    { name: "Reliure", url: "services.html#reliure" }
+  ];
+
+  function searchProducts() {
+    const input = document.getElementById("searchInput").value.toLowerCase();
+    const suggestions = document.getElementById("suggestions");
+
+    if (!input) {
+      suggestions.style.display = "none";
+      suggestions.innerHTML = "";
+      return;
+    }
+
+    // Filtrer les items correspondant à la recherche
+    const results = items.filter(item => item.name.toLowerCase().includes(input));
+
+    if (results.length > 0) {
+      suggestions.innerHTML = results.map(item => `
+        <div style="padding:8px; cursor:pointer;" onclick="selectSuggestion('${item.name}')">
+          ${item.name}
+        </div>
+      `).join('');
+      suggestions.style.display = "block";
+    } else {
+      suggestions.innerHTML = "<div style='padding:8px;'>Aucun résultat trouvé</div>";
+      suggestions.style.display = "block";
+    }
+  }
+
+  function selectSuggestion(itemName) {
+    const item = items.find(i => i.name === itemName);
+    if (item) {
+      window.location.href = item.url; // Redirection vers la page correspondante
+    }
+  }
+
+  // Fermer les suggestions si clic en dehors
+  document.addEventListener("click", function(e) {
+    const suggestions = document.getElementById("suggestions");
+    if (!document.querySelector(".search-wrap").contains(e.target)) {
+      suggestions.style.display = "none";
+    }
+  });
+</script>
       </div>
 
       <div class="icons">
         <a class="icon-btn" href="mailto:omerphambu@gmail.com"><strong>Email</strong></a>
         <a class="icon-btn" href="https://wa.me/243904649754?text=Bonjour%20SIS"><strong>WhatsApp</strong></a>
-        <a class="icon-btn" href="#cart"><strong>Panier <span id="cartCount">0</span></strong></a>
       </div>
     </div>
 
@@ -120,6 +184,7 @@
       <a href="impression.html">Impression</a>
       <a href="Nos matériels.html">Nos matériels </a>
       <a href="scan-plastification.html">Scan & Plastification</a>
+      <a href="nos-tarifs.html">Nos Tarifs</a>
       <a href="services.html">Services pros</a>
       <a href="promotions.html">Promotions</a>
       <a href="a-propos.html">A propos</a>
@@ -190,7 +255,7 @@
   </p>
 </div>
 <div class="service-card">
-  <img src="m.jpg" alt="Conceptions sur Photoshop ">
+  <img src="Info servir.avif" alt="Conceptions sur Photoshop ">
   <h3>Conceptions sur Photoshop</h3>
   <p>
     Affiche <strong>chansons, Ethiquette et Graphic </strong>.<br>
@@ -220,18 +285,228 @@
   <!-- Publications + Témoignages -->
   <section style="background:linear-gradient(90deg,#80d4ff,#c0eaff,#e0f7ff); padding:40px 18px; border-radius:12px; margin:20px 18px; display:flex; flex-wrap:wrap; gap:30px;">
 
-    <!-- Publications du jour -->
-    <div style="flex:2; min-width:300px;">
-      <h3 style="text-align:center; color:#ff6b00; margin-bottom:20px; font-size:20px;">Publications du Jour</h3>
-      <div class="slider-track" style="display:flex; transition:transform 0.5s ease; gap:20px; overflow:hidden;">
-        <div style="flex-shrink:0; width:300px; text-align:center;"><img src="670d1e65dd81bcb5749cfa05_66475da79ba5eb5a0a927d79_09-iOS-18-Concept-Central-800x450.webp" style="width:300px;height:200px;border-radius:12px;"><p style="color:#003580;font-size:14px;">Design iOS 18 Concept</p></div>
-        <div style="flex-shrink:0; width:300px; text-align:center;"><img src="calendrier.jpg" style="width:300px;height:200px;border-radius:12px;"><p style="color:#003580;font-size:14px;">Calendriers personnalisés à -10%</p></div>
-        <div style="flex-shrink:0; width:300px; text-align:center;"><img src="photo.jpg" style="width:300px;height:200px;border-radius:12px;"><p style="color:#003580;font-size:14px;">Livraison gratuite aujourd’hui !</p></div>
-      </div>
-      <div style="text-align:center; margin-top:12px;">
-        <button id="prevSlide" style="padding:6px 12px; margin-right:6px;">&#10094;</button>
-        <button id="nextSlide" style="padding:6px 12px;">&#10095;</button>
-      </div>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Panneau Publicitaire Ultra-Premium -->
+<div style="flex:2; min-width:300px;">
+  <h3 class="billboard-title">Frévrier • Dimanche 15</h3>
+  <div class="billboard-slider" id="billboardSlider">
+    <div class="billboard-slide active">
+      <div class="slide-overlay"></div>
+      <img src="670d1e65dd81bcb5749cfa05_66475da79ba5eb5a0a927d79_09-iOS-18-Concept-Central-800x450.webp" alt="Design iOS 18 Concept">
+      <p class="slide-caption">Design iOS 18 Concept</p>
+    </div>
+    <div class="billboard-slide">
+      <div class="slide-overlay"></div>
+      <img src="calendrier.jpg" alt="Calendriers personnalisés">
+      <p class="slide-caption">Calendriers personnalisés à -10%</p>
+    </div>
+    <div class="billboard-slide">
+      <div class="slide-overlay"></div>
+      <img src="photo.jpg" alt="Livraison gratuite">
+      <p class="slide-caption">Livraison gratuite aujourd’hui !</p>
+    </div>
+  </div>
+  <div class="billboard-controls">
+    <button id="prevBillboard">&#10094;</button>
+    <button id="nextBillboard">&#10095;</button>
+  </div>
+</div>
+
+<style>
+  /* TITRE NEON ANIME */
+  .billboard-title {
+    text-align:center;
+    color:#ff6b00;
+    font-size:24px;
+    margin-bottom:18px;
+    font-weight:bold;
+    text-transform:uppercase;
+    text-shadow: 0 0 5px #ff6b00, 0 0 10px #ff6b00, 0 0 20px #ff6b00, 0 0 30px #ff6b00, 0 0 50px #ff6b00;
+    animation: neonGlow 1.2s ease-in-out infinite alternate;
+  }
+  @keyframes neonGlow {
+    0% { text-shadow:0 0 5px #ff6b00,0 0 10px #ff6b00,0 0 20px #ff6b00; }
+    50% { text-shadow:0 0 15px #ff6b00,0 0 25px #ff6b00,0 0 35px #ff6b00; }
+    100% { text-shadow:0 0 5px #ff6b00,0 0 10px #ff6b00,0 0 20px #ff6b00; }
+  }
+
+  /* SLIDER PRINCIPAL */
+  .billboard-slider {
+    position: relative;
+    height: 220px;
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+  }
+  .billboard-slide {
+    position: absolute;
+    inset:0;
+    opacity:0;
+    transition: opacity 1s ease, transform 1s ease;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    background: linear-gradient(135deg, #e0f7ff, #c0eaff, #80d4ff);
+  }
+  .billboard-slide.active {
+    opacity:1;
+    transform: scale(1.05);
+    z-index:5;
+  }
+
+  /* IMAGE AVEC REFLET LUMINEUX */
+  .billboard-slide img {
+    width: 300px;
+    height: 200px;
+    object-fit:cover;
+    border-radius:12px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+    position: relative;
+    z-index:2;
+  }
+  .slide-overlay {
+    position:absolute;
+    inset:0;
+    background: linear-gradient(120deg, rgba(255,255,255,0.15), rgba(255,255,255,0));
+    pointer-events:none;
+    animation: shine 2s infinite;
+    border-radius:12px;
+    z-index:3;
+  }
+  @keyframes shine {
+    0% { background-position: -300px; }
+    100% { background-position: 300px; }
+  }
+
+  /* LEGENDES PULSANTES */
+  .slide-caption {
+    color:#ff6b00;
+    font-size:15px;
+    font-weight:700;
+    text-align:center;
+    text-shadow: 0 0 3px #fff, 0 0 6px #ff6b00;
+    animation: pulseCaption 1.5s infinite alternate;
+    margin-top:6px;
+    z-index:5;
+  }
+  @keyframes pulseCaption {
+    0% { text-shadow:0 0 3px #fff,0 0 6px #ff6b00; color:#ff6b00; }
+    50% { text-shadow:0 0 6px #fff,0 0 15px #ff6b00; color:#ffd500; }
+    100% { text-shadow:0 0 3px #fff,0 0 6px #ff6b00; color:#ff6b00; }
+  }
+
+  /* BOUTONS STYLÉS */
+  .billboard-controls {
+    text-align:center;
+    margin-top:12px;
+  }
+  .billboard-controls button {
+    padding:8px 14px;
+    margin:0 6px;
+    border:none;
+    border-radius:6px;
+    background: linear-gradient(90deg,#00bfff,#0066cc);
+    color:white;
+    font-size:18px;
+    cursor:pointer;
+    font-weight:bold;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .billboard-controls button:hover {
+    transform: scale(1.15);
+    box-shadow:0 6px 15px rgba(0,0,0,0.3);
+  }
+
+  @media(max-width:480px){
+    .billboard-slide img { width:100%; height:auto; }
+  }
+</style>
+
+<script>
+  const billboardSlides = document.querySelectorAll(".billboard-slide");
+  let billboardIndex = 0;
+
+  function showBillboardSlide(index) {
+    billboardSlides.forEach((slide,i)=>{
+      slide.classList.toggle("active", i===index);
+    });
+  }
+
+  document.getElementById("prevBillboard").addEventListener("click", ()=>{
+    billboardIndex = (billboardIndex - 1 + billboardSlides.length) % billboardSlides.length;
+    showBillboardSlide(billboardIndex);
+  });
+
+  document.getElementById("nextBillboard").addEventListener("click", ()=>{
+    billboardIndex = (billboardIndex + 1) % billboardSlides.length;
+    showBillboardSlide(billboardIndex);
+  });
+
+  // AUTO SLIDE + légère animation horizontale pour effet billboard
+  setInterval(()=>{
+    billboardIndex = (billboardIndex + 1) % billboardSlides.length;
+    showBillboardSlide(billboardIndex);
+  },4000);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     </div>
 
     <!-- Témoignages clients -->
@@ -240,7 +515,7 @@
       <div class="chat-slider" style="overflow:hidden; max-width:800px; margin:0 auto; position:relative;">
         <div class="chat-track" style="display:flex; flex-direction:column; gap:20px; transition: transform 0.5s ease;">
           <div style="display:flex; align-items:flex-start; gap:12px;">
-            <img src="WhatsApp Image 2025-10-29 à 08.09.49_cb8518f9.jpg" style="width:60px;height:60px;border-radius:50%;object-fit:cover;">
+            <img src="kk (2).jpg" style="width:60px;height:60px;border-radius:50%;object-fit:cover;">
             <div style="background:#fff; border-radius:12px; padding:14px 18px; box-shadow:0 4px 8px rgba(0,0,0,0.1); flex:1;">
               <p>“Service très rapide et efficace. Mon entreprise utilise désormais Splendide Info Service pour toutes nos impressions et reliures.”</p>
             </div>
@@ -329,14 +604,6 @@
 
 
 
-
-
-
-
-
-
-
-
 <!-- Newsletter Mailchimp -->
 <div style="max-width:500px; margin:20px auto 0 auto; text-align:center;">
   <p style="color:#00d4ff; font-size:14px; margin-bottom:10px;">
@@ -369,31 +636,6 @@
 
   </form>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   <!-- Jane Vialle et copyright centrés -->
   <div style="text-align:center; margin-top:30px;">
     <p class="neon-text" style="font-size:16px; margin:0;">📍 Pointe Noire - Grand Marché Jane Vialle</p>
